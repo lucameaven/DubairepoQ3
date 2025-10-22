@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杜拜房地產市場分析 Q3 2025 | Meaven Group</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Apache ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    
+    <!-- 移除了 Anime.js (未被使用) -->
+    
+    <style>
+        :root {
+            --primary-color: #009144;
+            --accent-color: #20C997;
+            --secondary-color: #FFB800;
+            --text-primary: #212529;
+            --text-secondary: #6C757D;
+            --bg-light: #F8F9FA;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #FFFFFF;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        
+        /* New Gradient Glow Background (replaces Aurora) */
+        .gradient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 80vw;
+            height: 100vh;
+            background: radial-gradient(circle at 0% 50%, rgba(0, 145, 68, 0.15) 0%, rgba(255, 255, 255, 0) 60%);
+            filter: blur(100px);
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+            overflow: hidden; /* To contain glow */
+        }
+        
+        /* New Nav */
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            z-index: 50;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        /* Mobile menu links adjustment */
+        .nav-links a {
+            margin-left: 0;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background-color: var(--bg-light);
+        }
+        @media (min-width: 768px) {
+            .nav-links a {
+                 margin-left: 1.5rem;
+                 padding: 0;
+            }
+            .nav-links a:hover {
+                 background-color: transparent;
+            }
+        }
+        
+        /* Hero Content */
+        .hero-title {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--text-primary);
+        }
+        .hero-title-accent {
+            color: var(--accent-color);
+        }
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            font-weight: 600;
+            color: var(--primary-color);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
+        .hero-description {
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            color: var(--text-secondary);
+            margin-top: 1.5rem;
+            max-width: 500px;
+        }
+        .hero-buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+        .hero-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .hero-btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .hero-btn-primary:hover {
+            background-color: #007a3a;
+        }
+        .hero-btn-secondary {
+            background-color: var(--bg-light);
+            color: var(--text-secondary);
+        }
+        .hero-btn-secondary:hover {
+            background-color: #e9ecef;
+        }
+
+        /* New KPI Card */
+        .kpi-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .kpi-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .kpi-value {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+        .kpi-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+        .kpi-yoy {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-top: 1rem;
+        }
+        .kpi-yoy-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Re-style old components */
+        .big-number {
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 0.9;
+            margin: 0;
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem); /* Slightly smaller than hero */
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+        
+        .english-accent {
+            font-size: 0.3em; /* Adjusted for new title size */
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            display: block;
+            margin-top: 0.5rem;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 145, 68, 0.1);
+            transition: all 0.3s ease;
+            height: 100%; /* For grid layout */
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .highlight-text {
+            background: linear-gradient(90deg, 
+                rgba(0, 145, 68, 0.15), 
+                rgba(32, 201, 151, 0.1));
+            padding: 0 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .chart-container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin: 1rem 0; /* Reduced margin */
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease-out;
+        }
+        
+        .logo-container {
+            max-width: 225px;
+            margin: 0 auto;
+        }
+        
+        .logo-container img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .text-accent-color {
+            color: var(--accent-color);
+        }
+        
+        .text-primary-color {
+            color: var(--primary-color);
+        }
+        
+        .text-secondary-color {
+            color: var(--secondary-color);
+        }
+
+        /* Property Segments List */
+        .segment-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1.5rem;
+        }
+        .segment-list li {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 0.9rem;
+        }
+        .segment-list li:last-child {
+            border-bottom: none;
+        }
+        .segment-color-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            margin-top: 0.3rem;
+            flex-shrink: 0;
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                /* flex-direction: column; (Handled by Tailwind) */
+                padding: 1rem;
+            }
+            /* .nav-links is now handled by Tailwind classes */
+            #lang-switcher {
+                /* position: absolute; (Handled by Tailwind) */
+                top: 0.5rem;
+                right: 4rem; /* Make space for hamburger */
+            }
+            .hero-section {
+                padding-top: 6rem; /* Make space for nav */
+            }
+            .stat-card {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- New Gradient Glow -->
+    <div class="gradient-glow"></div>
+
+    <!-- New Nav Bar -->
+    <nav class="relative"> <!-- Added relative for mobile menu positioning -->
+        <div class="flex items-center">
+            <a href="https://www.meaven.com" target="_blank" class="w-12 md:w-16">
+                <img src="https://i.ibb.co/4n69kfym/Meaven-Group-Logo-2025-s-1-3.png" alt="Meaven Group Logo">
+            </a>
+            <span class="text-sm font-medium text-gray-700 ml-3 hidden md:block" id="navTitle">
+                MEAVEN | Meaven Group - Dubai Real Estate Insights
+            </span>
+        </div>
+        <div class="flex items-center">
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+
+            <!-- Language Switcher -->
+            <div id="lang-switcher" class="relative ml-4 z-50">
+                <select onchange="changeLanguage(this.value)" class="bg-white border border-gray-300 rounded-md shadow-sm p-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]">
+                    <option value="zh-TW">繁體中文</option>
+                    <option value="zh-CN">简体中文</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+            
+            <!-- Nav Links (Updated for Mobile) -->
+            <div id="mobile-menu" class="nav-links hidden absolute top-16 left-0 right-0 bg-white shadow-lg p-4 z-40 flex flex-col space-y-2 md:relative md:top-auto md:bg-transparent md:shadow-none md:p-0 md:flex md:flex-row md:space-y-0 md:space-x-6">
+                <a href="#ytdMetrics" id="navLink1" onclick="toggleMobileMenu()">核心數據</a>
+                <a href="#segments" id="navLink2" onclick="toggleMobileMenu()">物業結構</a>
+                <a href="#invest" id="navLink3" onclick="toggleMobileMenu()">投資機會</a>
+                <a href="#outlook" id="navLink4" onclick="toggleMobileMenu()">未來展望</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center w-full" style="max-width: 1400px;">
+            <!-- Left Column -->
+            <div class="fade-in text-center lg:text-left">
+                <h1 class="hero-title" id="heroTitleNew">
+                    杜拜房地產｜<span class="hero-title-accent" id="heroTitleAccent">Q3 2025</span> 市場分析
+                </h1>
+                <p class="hero-subtitle" id="heroSubtitleNew">
+                    DUBAI REAL ESTATE MARKET ANALYSIS — Q3 2025
+                </p>
+                <p class="hero-description" id="heroDescription">
+                    Q3 2025 創下歷史新高的單季成交量與金額。此頁以可視化方式呈現交易規模、物業結構、關鍵驅動與未來展望，幫助投資者快速理解市場脈動。
+                </p>
+                <div class="hero-buttons justify-center lg:justify-start">
+                    <a href="#ytdMetrics" class="hero-btn hero-btn-primary" id="heroBtn1">查看核心數據</a>
+                    <!-- REMOVED: <a href="#footerSource" class="hero-btn hero-btn-secondary" id="heroBtn2">Methods / Sources</a> -->
+                </div>
+            </div>
+            
+            <!-- Right Column (KPI Card) -->
+            <div class="fade-in">
+                <div class="kpi-card">
+                    <p class="kpi-title" id="kpiTitle">Quarter KPI</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- KPI 1 -->
+                        <div>
+                            <p class="kpi-value" id="kpi1Val">59,228</p>
+                            <p class="kpi-desc" id="kpi1Desc">單季成交量 / Q3 Transactions</p>
+                            <p class="kpi-yoy" id="kpi1YoY">+17.2%</p>
+                            <p class="kpi-yoy-desc" id="kpi1YoYDesc">YoY 交易量 / Volume</p>
+                        </div>
+                        <!-- KPI 2 -->
+                        <div>
+                            <p class="kpi-value" id="kpi2Val">AED 170.7B</p>
+                            <p class="kpi-desc" id="kpi2Desc">單季成交額 / Q3 Sales Value</p>
+                            <p class="kpi-yoy" id="kpi2YoY">+19.9%</p>
+                            <p class="kpi-yoy-desc" id="kpi2YoYDesc">YoY 金額 / Value</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expert Summary Section -->
+    <section class="py-20 px-4 md:px-8" style="background-color: #F8F9FA;">
+        <div class="container mx-auto" style="max-width: 1280px;">
+            <h2 class="section-title fade-in" id="summaryTitle">Meaven 專家解讀
+                <span class="english-accent" id="summarySubtitle">為何 Q3 數據對您至關重要</span>
+            </h2>
+            <div class="stat-card fade-in">
+                <!-- MODIFIED: Changed from single paragraph to list for readability -->
+                <p class="text-xl leading-relaxed mb-6" id="summaryText1_intro">
+                    杜拜 Q3 市場再創新高，但數據背後隱藏著三大關鍵訊號：
+                </p>
+                <ul class="space-y-4 mb-6" id="summaryText1_list">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i>
+                        <div>
+                            <strong class="text-primary-color">真實需求支撐：</strong>
+                            <span id="summaryPoint1">交易量與價值同步增長 (17% vs 19%)，顯示市場由自住者和長期投資者主導，而非短期炒作。</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i>
+                        <div>
+                            <strong class="text-primary-color">期房市場火熱：</strong>
+                            <span id="summaryPoint2">73% 的佔比顯示全球投資者對杜拜未來的強烈信心，黃金簽證是主要催化劑。</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i>
+                        <div>
+                            <strong class="text-primary-color">豪宅市場不退燒：</strong>
+                            <span id="summaryPoint3">均價 1940 萬美元的豪宅交易量增長 24%，證明杜拜作為全球財富避風港的地位日益鞏固。</span>
+                        </div>
+                    </li>
+                </ul>
+                <p class="text-xl leading-relaxed font-bold" id="summaryText2">
+                    對投資者而言，這意味著市場正處於「健康增長」而非「泡沫」階段。現在的窗口期是利用期房槓桿鎖定未來價值的絕佳時機。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- *** NEW: YTD Key Metrics Section (From Image 2) *** -->
+    <section id="ytdMetrics" class="py-20 px-4 md:px-8">
+        <div class="container mx-auto" style="max-width: 1280px;">
+            <h2 class="section-title fade-in" id="ytdTitle">核心數據
+                <span class="english-accent">Key Metrics</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="stat-card fade-in">
+                    <p class="text-lg text-gray-600 mb-2" id="ytd1Title">1-9月成交額</p>
+                    <p class="text-5xl font-bold text-primary-color" id="ytd1Val">AED 498.8B</p>
+                    <p class="text-sm mt-2" style="color: #6C757D;" id="ytd1Desc">9-Month Sales Value</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="stat-card fade-in">
+                    <p class="text-lg text-gray-600 mb-2" id="ytd2Title">1-9月成交量</p>
+                    <p class="text-5xl font-bold text-primary-color" id="ytd2Val">158,200</p>
+                    <p class="text-sm mt-2" style="color: #6C757D;" id="ytd2Desc">Total Transactions (9M)</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="stat-card fade-in">
+                    <p class="text-lg text-gray-600 mb-2" id="ytd3Title">年增率 (金額)</p>
+                    <p class="text-5xl font-bold text-accent-color" id="ytd3Val">+32.3%</p>
+                    <p class="text-sm mt-2" style="color: #6C757D;" id="ytd3Desc">YoY Value Growth</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="stat-card fade-in">
+                    <p class="text-lg text-gray-600 mb-2" id="ytd4Title">年增率 (交易量)</p>
+                    <p class="text-5xl font-bold text-accent-color" id="ytd4Val">+20.5%</p>
+                    <p class="text-sm mt-2" style="color: #6C757D;" id="ytd4Desc">YoY Volume Growth</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Market Overview Section -->
+    <section class="py-20 px-4 md:px-8" style="background-color: #F8F9FA;">
+        <div class="container mx-auto" style="max-width: 1280px;">
+            <h2 class="section-title fade-in" id="overviewTitle">市場概覽
+                <span class="english-accent">Market Overview</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="fade-in">
+                    <p class="text-xl leading-relaxed mb-6" id="overviewText1">
+                        2025年第三季度，<span class="highlight-text">杜拜房地產市場創下歷史最高季度交易量</span>，
+                        總交易額達到1,707億迪拉姆（465億美元），交易量達59,228筆。
+                    </p>
+                    <p class="text-lg leading-relaxed" style="color: #6C757D;" id="overviewText2">
+                        與去年同期相比，交易量增長17.2%，交易價值增長19.9%。這種平衡的增長模式表明，
+                        市場由真實需求而非投機過度推動，展現出健康的市場動態。
+                    </p>
+                </div>
+                
+                <div class="chart-container fade-in">
+                    <div id="transactionChart" style="height: 350px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- *** Key Metrics Section (Old) - REMOVED *** -->
+    <!-- This section was redundant with YTD Metrics and Property Segments -->
+    
+    <!-- Luxury Market Section -->
+    <section class="py-20 px-4 md:px-8" style="background-color: #F8F9FA;">
+        <div class="container mx-auto" style="max-width: 1280px;">
+            <h2 class="section-title fade-in" id="luxuryTitle">豪華房產市場
+                <span class="english-accent">Ultra-Prime Segment</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="fade-in">
+                    <div class="big-number" style="font-size: 6rem;" id="luxuryValue">103
+                        <span class="english-accent">$10M+ Transactions</span>
+                    </div>
+                    <p class="text-xl mt-6 leading-relaxed" id="luxuryText">
+                        第三季度錄得103筆超過1,000萬美元的豪宅交易，同比增長24%。
+                        其中17筆交易價格超過2,500萬美元，<span class="highlight-text">最高成交價達9,530萬美元</span>。
+                    </p>
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="stat-card">
+                            <p class="text-sm" style="color: #6C757D;" id="luxuryStat1-title">Palm Jumeirah</p>
+                            <p class="text-2xl font-bold text-primary-color" id="luxuryStat1-value">34%</p>
+                            <p class="text-xs" id="luxuryStat1-desc">豪宅交易佔比</p>
+                        </div>
+                        <div class="stat-card">
+                            <p class="text-sm" style="color: #6C757D;" id="luxuryStat2-title">Average Deal Value</p>
+                            <p class="text-2xl font-bold text-primary-color" id="luxuryStat2-value">$19.4M</p>
+                            <p class="text-xs" id="luxuryStat2-desc">YoY +23.8%</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-container fade-in">
+                    <div id="luxuryChart" style="height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Developer Performance Section -->
+    <section class="py-20 px-4 md:px-8">
+        <div class="container mx-auto" style="max-width: 1280px;">
+            <h2 class="section-title fade-in" id="devTitle">開發商表現
+                <span class="english-accent">Top Developers</span>
+            </h2>
+            
+            <div class="chart-container fade-in">
+                <div id="developerChart" style="height: 400px;"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <div class="stat-card fade-in">
+                    <h3 class="text-xl font-bold mb-3" id="dev1-title">Emaar Properties</h3>
+                    <p class="text-3xl font-bold text-accent-color" id="dev1-value">460億 <span class="text-sm">AED</span></p>
+                    <p class="text-sm mt-2" style="color: #6C757D;" id="dev1-desc1">H1 2025銷售額 | YoY +46%</p>
+                    <p class="text-sm mt-2" id="dev1-desc2">標誌性項目包括 Address Residences Dubai Opera</p>
+                </div>
+                
+                <div class="stat-card fade-in">
+                    <h3 class="text-xl font-bold mb-3" id="dev2-title">DAMAC Properties</h3>
+                    <p class="text-3xl font-bold text-accent-color" id="dev2-value">品牌豪宅</p>
+                    <p class="text-sm mt-2" style="color: #6C757D;" id="dev2-desc1">Lagoon主題別墅系列</p>
+                    <p class="text-sm mt-2" id="dev2-desc2">與Roberto Cavalli等國際品牌合作</p>
+                </div>
+                
+                <div class="stat-card fade-in">
+                    <h3 class="text-xl font-bold mb-3" id="dev3-title">Nakheel</h3>
+                    <p class="text-3xl font-bold text-accent-color" id="dev3-value">40億 <span class="text-sm">USD</span></p>
+                    <p class="text-sm mt-2" style="color: #6C757D;" id="dev3-desc1">Dubai Islands開發資金</p>
+                    <p class="text-sm mt-2" id="dev3-desc2">大型濱水項目領導者</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Investment Opportunities Section (Content Integrated) -->
+    <section id="invest" class="py-20 px-4 md:px-8" style="background-color: #F8F9FA;">
+        <div class="container mx-auto" style="max-width: 1280px;">
+            <h2 class="section-title fade-in" id="investTitle">投資機會
+                <span class="english-accent">Investment Hotspots & Drivers</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Location 1 -->
+                <div class="stat-card fade-in">
+                    <i class="fas fa-map-marker-alt text-3xl text-accent-color mb-3"></i>
+                    <h3 class="text-xl font-bold mb-2" id="invest1-title">Downtown Dubai</h3>
+                    <p class="text-2xl font-bold text-primary-color" id="invest1-value">6-8%</p>
+                    <p class="text-sm" style="color: #6C757D;" id="invest1-desc1">年租金回報率</p>
+                    <p class="text-sm mt-2" id="invest1-desc2">核心地段，鄰近Burj Khalifa</p>
+                </div>
+                
+                <!-- Location 2 -->
+                <div class="stat-card fade-in">
+                    <i class="fas fa-map-marker-alt text-3xl text-accent-color mb-3"></i>
+                    <h3 class="text-xl font-bold mb-2" id="invest2-title">Dubai Marina</h3>
+                    <p class="text-2xl font-bold text-primary-color" id="invest2-value">高達8%</p>
+                    <p class="text-sm" style="color: #6C757D;" id="invest2-desc1">年租金回報率</p>
+                    <p class="text-sm mt-2" id="invest2-desc2">濱海生活方式，成熟社區</p>
+                </div>
+                
+                <!-- Location 3 -->
+                <div class="stat-card fade-in">
+                    <i class="fas fa-map-marker-alt text-3xl text-accent-color mb-3"></i>
+                    <h3 class="text-xl font-bold mb-2" id="invest3-title">Jumeirah Village Circle</h3>
+                    <p class="text-2xl font-bold text-primary-color" id="invest3-value">8-9%</p>
+                    <p class="text-sm" style="color: #6C757D;" id="invest3-desc1">年租金回報率</p>
+                    <p class="text-sm mt-2" id="invest3-desc2">高性價比，家庭友好</p>
+                </div>
+
+                <!-- Integrated Card 1 (From Old Metrics) -->
+                <div class="stat-card fade-in">
+                    <i class="fas fa-chart-line text-4xl text-accent-color mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2" id="metrics3-title">租金回報</h3>
+                    <p class="text-3xl font-bold text-primary-color" id="metrics3-value">6-8%</p>
+                    <p class="text-sm mt-2" style="color: #6C757D;" id="metrics3-desc1">Annual Yield</p>
+                    <p class="text-sm mt-2" id="metrics3-desc2">全球領先水平</p>
+                </div>
+                
+                <!-- Integrated Card 2 (From Old Metrics) -->
+                <div class="stat-card fade-in">
+                    <i class="fas fa-users text-4xl text-accent-color mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2" id="metrics4-title">人口增長</h3>
+                    <p class="text-3xl font-bold text-primary-color" id="metrics4-value">400萬</p>
+                    <p class="text-sm mt-2" style="color: #6C757D;" id="metrics4-desc1">Current Population</p>
+                    <p class="text-sm mt-2" id="metrics4-desc2">2025新增9,800位百萬富翁</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- *** NEW: Property Segments Section (From Image 3) *** -->
+    <!-- This replaces the old "Market Trends" section -->
+    <section id="segments" class="py-20 px-4 md:px-8">
+        <div class="container mx-auto" style="max-width: 1280px;">
+            <h2 class="section-title fade-in" id="segmentsTitle">物業結構
+                <span class="english-accent">Property Segments</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left Column: Property Types -->
+                <div class="stat-card fade-in">
+                    <h3 class="text-2xl font-bold mb-4" id="segmentsSub1">Q3 類型佔比: Apartments / Villas / Plots / Commercial</h3>
+                    <div class="chart-container p-0 shadow-none">
+                        <div id="propertySegmentsChart" style="height: 350px;"></div>
+                    </div>
+                    <ul class="segment-list">
+                        <li id="segmentList1"><span class="segment-color-dot" style="background-color: #009144;"></span><span><strong>公寓 (Apartments):</strong> 49,370 宗、AED 94.3B (年增 +25.9%)</span></li>
+                        <li id="segmentList2"><span class="segment-color-dot" style="background-color: #FFB800;"></span><span><strong>別墅 (Villas):</strong> 7,078 宗、AED 43.1B</span></li>
+                        <li id="segmentList3"><span class="segment-color-dot" style="background-color: #212529;"></span><span><strong>地塊 (Plots):</strong> 1,214 宗、AED 36.1B (量 +25.7% YoY)</span></li>
+                        <li id="segmentList4"><span class="segment-color-dot" style="background-color: #20C997;"></span><span><strong>商辦 (Commercial):</strong> 1,565 宗、AED 4.2B (量 +41.9% YoY)</span></li>
+                    </ul>
+                </div>
+                
+                <!-- Right Column: Market Structure -->
+                <div class="stat-card fade-in">
+                    <h3 class="text-2xl font-bold mb-4" id="segmentsSub2">市場結構: Off-plan vs Ready</h3>
+                    <div class="chart-container p-0 shadow-none">
+                        <div id="marketStructureChart" style="height: 350px;"></div>
+                    </div>
+                    <p class="text-center text-lg mt-4" id="segmentsDesc">
+                        Q3 交易量比重: <strong class="text-primary-color">Off-plan 73%</strong> / Ready 27%<br>
+                        金額比重: <strong class="text-primary-color">Off-plan 66%</strong> / Ready 34%
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Future Outlook Section -->
+    <section id="outlook" class="py-20 px-4 md:px-8" style="background-color: #F8F9FA;">
+        <div class="container mx-auto" style="max-width: 1280px;">
+            <h2 class="section-title fade-in" id="outlookTitle">未來展望
+                <span class="english-accent">Future Outlook</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="fade-in">
+                    <p class="text-xl leading-relaxed mb-6" id="outlookText">
+                        分析師預計2025年底前市場將<span class="highlight-text">「軟著陸」</span>，
+                        而非急劇調整。得益於高度的真實需求和相對受控的抵押貸款槓桿。
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold" id="outlook1-title">供應增加但需求強勁</h4>
+                                <p style="color: #6C757D;" id="outlook1-desc">2025年預計交付90,000個單位，2026年120,000個單位</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold" id="outlook2-title">價格增長放緩但穩定</h4>
+                                <p style="color: #6C757D;" id="outlook2-desc">預計年增長率5-7%，避免市場過熱</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold" id="outlook3-title">D33經濟計劃支撐</h4>
+                                <p style="color: #6C757D;" id="outlook3-desc">目標到2033年將經濟規模翻倍，成為全球四大金融中心之一</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold" id="outlook4-title">區塊鏈房地產代幣化</h4>
+                                <p style="color: #6C757D;" id="outlook4-desc">到2033年市場規模預計達160億美元</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-container fade-in">
+                    <div id="forecastChart" style="height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Golden Visa Section -->
+    <section class="py-20 px-4 md:px-8" style="background: linear-gradient(to right, #FFFBF0, #F0FFF8);">
+        <div class="container mx-auto" style="max-width: 1280px;">
+            <h2 class="section-title fade-in" id="visaTitle">黃金簽證計劃
+                <span class="english-accent">Golden Visa Program</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="stat-card fade-in">
+                    <i class="fas fa-passport text-4xl text-secondary-color mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" id="visa1-title">2年簽證</h3>
+                    <p class="text-3xl font-bold text-primary-color" id="visa1-value">75萬 <span class="text-sm">AED</span></p>
+                    <p class="text-sm mt-2" style="color: #6C757D;" id="visa1-desc1">最低投資門檻</p>
+                    <p class="text-sm mt-2" id="visa1-desc2">約20.4萬美元</p>
+                </div>
+                
+                <div class="stat-card fade-in">
+                    <i class="fas fa-passport text-4xl text-secondary-color mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" id="visa2-title">3年簽證</h3>
+                    <p class="text-3xl font-bold text-primary-color" id="visa2-value">200萬 <span class="text-sm">AED</span></p>
+                    <p class="text-sm mt-2" style="color: #6C757D;" id="visa2-desc1">中等投資門檻</p>
+                    <p class="text-sm mt-2" id="visa2-desc2">約54.5萬美元</p>
+                </div>
+                
+                <div class="stat-card fade-in">
+                    <i class="fas fa-passport text-4xl text-secondary-color mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" id="visa3-title">10年簽證</h3>
+                    <p class="text-3xl font-bold text-primary-color" id="visa3-value">200萬+ <span class="text-sm">AED</span></p>
+                    <p class="text-sm mt-2" style="color: #6C757D;" id="visa3-desc1">黃金簽證</p>
+                    <p class="text-sm mt-2" id="visa3-desc2">包括期房和抵押房產</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Meaven Section -->
+    <section class="py-20 px-4 md:px-8">
+        <div class="container mx-auto" style="max-width: 1280px;">
+            <h2 class="section-title fade-in" id="aboutTitle">關於 Meaven
+                <span class="english-accent" id="aboutTitleEN">您最值得信賴的杜拜投資夥伴</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div class="fade-in">
+                    <p class="text-2xl font-bold mb-4" id="aboutSubtitle">
+                        選擇 Meaven，就是選擇杜拜房產投資的最高保障。
+                    </p>
+                    <p class="text-lg leading-relaxed mb-4" style="color: #6C757D;" id="aboutP1">
+                        Meaven 是持有杜拜經濟部 (DED) 核發正規房地產執照的顧問公司，並取得 RERA (Real Estate Regulatory Agency) 的官方認證。RERA 是杜拜政府的房地產監管機構，負責保護買賣雙方的權益，確保所有交易的透明、安全與公正。只有具備 RERA 資質，才是真正合規、值得信賴的房產經紀公司。
+                    </p>
+                    <p class="text-lg leading-relaxed mb-6" style="color: #6C757D;" id="aboutP2">
+                        我們與 Emaar、DAMAC、Sobha 等杜拜各大頂級開發商均建立官方合作關係，直接簽署合約，這與坊間一般的「代銷公司」有著根本上的不同。許多代銷公司資訊層層轉包、價格不透明，甚至在遇到問題時責任不清。選擇 Meaven，代表您是直接與開發商站在同一陣線，享受官方價格、優先選房權，以及最即時、準確的建案資訊。
+                    </p>
+                </div>
+                <div class="fade-in">
+                    <div class="stat-card">
+                        <h3 class="text-2xl font-bold mb-6" id="aboutServicesTitle">一站式的整合服務</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start" id="aboutS1"><i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i><span><strong>量身訂製房產推薦：</strong>無論您是追求高租金回報、長期資產增值或自住需求，我們都能依據您的目標，推薦最合適的投資項目。</span></li>
+                            <li class="flex items-start" id="aboutS2"><i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i><span><strong>解決跨境金流難題：</strong>完美處理您從海外跨境匯款至杜拜的複雜流程，確保資金安全、高效到帳。</span></li>
+                            <li class="flex items-start" id="aboutS3"><i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i><span><strong>一站式企業服務：</strong>專業協助您完成杜拜公司設立、銀行開戶、稅務規劃等，為您的事業版圖打下堅實基礎。</span></li>
+                            <li class="flex items-start" id="aboutS4"><i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i><span><strong>多元化資產配置：</strong>我們也能在黃金貿易、虛擬貨幣、家族辦公室 (Family Office) 在杜拜的真實運作與架構等領域，為您提供合規、安全的資產配置服務。</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+             <div class="stat-card fade-in mt-8 text-center" style="background-color: #F8F9FA;">
+                <p class="text-xl" id="aboutP3">Meaven 的服務網絡遍佈全球，在杜拜、香港、台灣、上海、成都均設有辦事處與專業團隊，為您提供零時差的在地服務。</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-12 px-4" style="background-color: #212529; color: white;">
+        <div class="container mx-auto text-center" style="max-width: 1280px;">
+            <div class="logo-container mb-6">
+                <img src="https://i.ibb.co/4n69kfym/Meaven-Group-Logo-2025-s-1-3.png" 
+                     alt="Meaven Group" 
+                     style="filter: brightness(0) invert(1);">
+            </div>
+            <div class="mb-4">
+                <h3 class="text-2xl font-bold mb-2" id="footerTitle">Meaven Group</h3>
+                <p style="color: #6C757D;" id="footerSubtitle">專業房地產投資顧問</p>
+            </div>
+            
+            <div class="text-xs text-gray-500 my-6 max-w-3xl mx-auto" id="footerSource">
+                資料來源 (Source): DXBinteract, Gulf News, Arabian Business, Economy Middle East, Dubai Land Department, Metropolitan 等。本報告內容基於公開新聞與杜拜官方數據編譯設計。
+            </div>
+
+            <!-- ADDED: Disclaimer -->
+            <div class="text-xs text-gray-400 my-4 max-w-3xl mx-auto" id="footerDisclaimer">
+                海外不動產投資，具有風險性，請投資人詳閱行銷文件並審慎考量後再行交易。
+            </div>
+
+            <div class="text-sm" style="color: #6C757D;">
+                <p id="footerCopyright">&copy; 2025 Meaven Group. All rights reserved.</p>
+                <p class="mt-2">
+                    <a href="https://www.meaven.com" target="_blank" class="text-accent-color hover:text-white transition" id="footerLink">
+                        www.meaven.com
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Global state
+        var currentLang = 'zh-TW';
+        var transactionChart, luxuryChart, developerChart, forecastChart;
+        // New chart variables
+        var propertySegmentsChart, marketStructureChart;
+
+        // Translations Object
+        var translations = {
+            'zh-TW': {
+                pageTitle: '杜拜房地產市場分析 Q3 2025 | Meaven Group',
+                // New Nav
+                navTitle: 'MEAVEN | Meaven Group - Dubai Real Estate Insights',
+                navLink1: '核心數據',
+                navLink2: '物業結構',
+                navLink3: '投資機會',
+                navLink4: '未來展望',
+                // New Hero
+                heroTitleNew: '杜拜房地產｜<span class="hero-title-accent">Q3 2025</span> 市場分析',
+                heroSubtitleNew: 'DUBAI REAL ESTATE MARKET ANALYSIS — Q3 2025',
+                heroDescription: 'Q3 2025 創下歷史新高的單季成交量與金額。此頁以可視化方式呈現交易規模、物業結構、關鍵驅動與未來展望，幫助投資者快速理解市場脈動。',
+                heroBtn1: '查看核心數據',
+                // heroBtn2: 'Methods / Sources', // REMOVED
+                kpiTitle: 'Quarter KPI',
+                kpi1Val: '59,228',
+                kpi1Desc: '單季成交量 / Q3 Transactions',
+                kpi1YoY: '+17.2%',
+                kpi1YoYDesc: '交易量 (年增率)', // MODIFIED
+                kpi2Val: 'AED 1707 億', // MODIFIED
+                kpi2Desc: '單季成交額 / Q3 Sales Value',
+                kpi2YoY: '+19.9%',
+                kpi2YoYDesc: '金額 (年增率)', // MODIFIED
+                // Summary
+                summaryTitle: 'Meaven 專家解讀',
+                summarySubtitle: '為何 Q3 數據對您至關重要',
+                // MODIFIED: Split summaryText1 into parts for new layout
+                summaryText1_intro: '杜拜 Q3 市場再創新高，但數據背後隱藏著三大關鍵訊號：',
+                summaryPoint1: '交易量與價值同步增長 (17% vs 19%)，顯示市場由自住者和長期投資者主導，而非短期炒作。',
+                summaryPoint2: '73% 的佔比顯示全球投資者對杜拜未來的強烈信心，黃金簽證是主要催化劑。',
+                summaryPoint3: '均價 1940 萬美元的豪宅交易量增長 24%，證明杜拜作為全球財富避風港的地位日益鞏固。',
+                summaryText2: '對投資者而言，這意味著市場正處於「健康增長」而非「泡沫」階段。現在的窗口期是利用期房槓桿鎖定未來價值的絕佳時機。',
+                // New YTD Metrics
+                ytdTitle: '核心數據<span class="english-accent">Key Metrics (YTD)</span>',
+                ytd1Title: '1-9月成交額',
+                ytd1Val: 'AED 4988 億', // MODIFIED
+                ytd1Desc: '9-Month Sales Value',
+                ytd2Title: '1-9月成交量',
+                ytd2Val: '158,200',
+                ytd2Desc: 'Total Transactions (9M)',
+                ytd3Title: '年增率 (金額)',
+                ytd3Val: '+32.3%',
+                ytd3Desc: '金額年增率', // MODIFIED
+                ytd4Title: '年增率 (交易量)',
+                ytd4Val: '+20.5%',
+                ytd4Desc: '交易量年增率', // MODIFIED
+                // Overview
+                overviewTitle: '市場概覽<span class="english-accent">Market Overview</span>',
+                overviewText1: '2025年第三季度，<span class="highlight-text">杜拜房地產市場創下歷史最高季度交易量</span>，總交易額達到1,707億迪拉姆（465億美元），交易量達59,228筆。',
+                overviewText2: '與去年同期相比，交易量增長17.2%，交易價值增長19.9%。這種平衡的增長模式表明，市場由真實需求而非投機過度推動，展現出健康的市場動態。',
+                // Old Metrics (Now integrated into 'invest' section)
+                metrics3: { title: '租金回報', desc1: 'Annual Yield', desc2: '全球領先水平' },
+                metrics4: { title: '人口增長', desc1: 'Current Population', desc2: '2025新增9,800位百萬富翁' },
+                // Luxury
+                luxuryTitle: '豪華房產市場<span class="english-accent">Ultra-Prime Segment</span>',
+                luxuryValue: '103<span class="english-accent">$10M+ Transactions</span>',
+                luxuryText: '第三季度錄得103筆超過1,000萬美元的豪宅交易，同比增長24%。其中17筆交易價格超過2,500萬美元，<span class="highlight-text">最高成交價達9,530萬美元</span>。',
+                luxuryStat1: { title: 'Palm Jumeirah', desc: '豪宅交易佔比' },
+                luxuryStat2: { title: 'Average Deal Value', desc: '年增率 +23.8%', value: '1940 萬美元' }, // MODIFIED
+                // Developers
+                devTitle: '開發商表現<span class="english-accent">Top Developers</span>',
+                dev1: { title: 'Emaar Properties', desc1: 'H1 2025銷售額 | 年增率 +46%', desc2: '標誌性項目包括 Address Residences Dubai Opera' }, // MODIFIED
+                dev2: { title: 'DAMAC Properties', value: '品牌豪宅', desc1: 'Lagoon主題別墅系列', desc2: '與Roberto Cavalli等國際品牌合作' },
+                dev3: { title: 'Nakheel', desc1: 'Dubai Islands開發資金', desc2: '大型濱水項目領導者' },
+                // Investment
+                investTitle: '投資機會<span class="english-accent">Investment Hotspots & Drivers</span>',
+                invest1: { title: 'Downtown Dubai', desc1: '年租金回報率', desc2: '核心地段，鄰近Burj Khalifa' },
+                invest2: { title: 'Dubai Marina', desc1: '年租金回報率', desc2: '濱海生活方式，成熟社區' },
+                invest3: { title: 'Jumeirah Village Circle', desc1: '年租金回報率', desc2: '高性價比，家庭友好' },
+                // New Property Segments
+                segmentsTitle: '物業結構<span class="english-accent">Property Segments</span>',
+                segmentsSub1: 'Q3 類型佔比: Apartments / Villas / Plots / Commercial',
+                segmentsSub2: '市場結構: Off-plan vs Ready',
+                segmentList1: '<strong>公寓 (Apartments):</strong> 49,370 宗、AED 943 億 (年增率 +25.9%)', // MODIFIED
+                segmentList2: '<strong>別墅 (Villas):</strong> 7,078 宗、AED 431 億', // MODIFIED
+                segmentList3: '<strong>地塊 (Plots):</strong> 1,214 宗、AED 361 億 (交易量年增率 +25.7%)', // MODIFIED
+                segmentList4: '<strong>商辦 (Commercial):</strong> 1,565 宗、AED 42 億 (交易量年增率 +41.9%)', // MODIFIED
+                segmentsDesc: 'Q3 交易量比重: <strong class="text-primary-color">Off-plan 73%</strong> / Ready 27%<br>金額比重: <strong class="text-primary-color">Off-plan 66%</strong> / Ready 34%',
+                // Outlook
+                outlookTitle: '未來展望<span class="english-accent">Future Outlook</span>',
+                outlookText: '分析師預計2025年底前市場將<span class="highlight-text">「軟著陸」</span>，而非急劇調整。得益於高度的真實需求和相對受控的抵押貸款槓桿。',
+                outlook1: { title: '供應增加但需求強勁', desc: '2025年預計交付90,000個單位，2026年120,000個單位' },
+                outlook2: { title: '價格增長放緩但穩定', desc: '預計年增長率5-7%，避免市場過熱' },
+                outlook3: { title: 'D33經濟計劃支撐', desc: '目標到2033年將經濟規模翻倍，成為全球四大金融中心之一' },
+                outlook4: { title: '區塊鏈房地產代幣化', desc: '到2033年市場規模預計達160億美元' },
+                // Visa
+                visaTitle: '黃金簽證計劃<span class="english-accent">Golden Visa Program</span>',
+                visa1: { title: '2年簽證', desc1: '最低投資門檻', desc2: '約20.4萬美元' },
+                visa2: { title: '3年簽證', desc1: '中等投資門檻', desc2: '約54.5萬美元' },
+                visa3: { title: '10年簽證', desc1: '黃金簽證', desc2: '包括期房和抵押房產' },
+                // About
+                aboutTitle: '關於 Meaven',
+                aboutTitleEN: '您最值得信賴的杜拜投資夥伴',
+                aboutSubtitle: '選擇 Meaven，就是選擇杜拜房產投資的最高保障。',
+                aboutP1: 'Meaven 是持有杜拜經濟部 (DED) 核發正規房地產執照的顧問公司，並取得 RERA (Real Estate Regulatory Agency) 的官方認證。RERA 是杜拜政府的房地產監管機構，負責保護買賣雙方的權益，確保所有交易的透明、安全與公正。只有具備 RERA 資質，才是真正合規、值得信賴的房產經紀公司。',
+                aboutP2: '我們與 Emaar、DAMAC、Sobha 等杜拜各大頂級開發商均建立官方合作關係，直接簽署合約，這與坊間一般的「代銷公司」有著根本上的不同。許多代銷公司資訊層層轉包、價格不透明，甚至在遇到問題時責任不清。選擇 Meaven，代表您是直接與開發商站在同一陣線，享受官方價格、優先選房權，以及最即時、準確的建案資訊。',
+                aboutServicesTitle: '一站式的整合服務',
+                aboutS1: '<strong>量身訂製房產推薦：</strong>無論您是追求高租金回報、長期資產增值或自住需求，我們都能依據您的目標，推薦最合適的投資項目。',
+                aboutS2: '<strong>解決跨境金流難題：</strong>完美處理您從海外跨境匯款至杜拜的複雜流程，確保資金安全、高效到帳。',
+                aboutS3: '<strong>一站式企業服務：</strong>專業協助您完成杜拜公司設立、銀行開戶、稅務規劃等，為您的事業版圖打下堅實基礎。',
+                aboutS4: '<strong>多元化資產配置：</strong>我們也能在黃金貿易、虛擬貨幣、家族辦公室 (Family Office) 在杜拜的真實運作與架構等領域，為您提供合規、安全的資產配置服務。',
+                aboutP3: 'Meaven 的服務網絡遍佈全球，在杜拜、香港、台灣、上海、成都均設有辦事處與專業團隊，為您提供零時差的在地服務。',
+                // Footer
+                footerTitle: 'Meaven Group',
+                footerSubtitle: '專業房地產投資顧問',
+                footerSource: '資料來源 (Source): DXBinteract, Gulf News, Arabian Business, Economy Middle East, Dubai Land Department, Metropolitan 等。本報告內容基於公開新聞與杜拜官方數據編譯設計。',
+                footerCopyright: '&copy; 2025 Meaven Group. All rights reserved.',
+                footerDisclaimer: '海外不動產投資，具有風險性，請投資人詳閱行銷文件並審慎考量後再行交易。', // ADDED
+                // Charts
+                charts: {
+                    transactionTitle: '季度交易趨勢',
+                    transactionYAxis: '交易量',
+                    transactionSeries: '交易量',
+                    luxuryTitle: '豪宅市場交易分佈',
+                    luxurySubtext: 'Q3 2025',
+                    luxurySeries: ['Palm Jumeirah', 'Jumeirah 2', 'Downtown Dubai', 'Dubai Hills', '其他區域'],
+                    devTitle: '主要開發商市場份額',
+                    devYAxis: ['其他', 'Meraas/DH', 'Nakheel', 'Sobha', 'DAMAC', 'Emaar'],
+                    // New Chart Keys
+                    segmentsDonutTitle: 'Q3 物業類型',
+                    segmentsDonutSeries: ['公寓', '別墅', '地塊', '商辦'],
+                    structureDonutTitle: '市場結構',
+                    structureDonutSeries: ['期房 (Off-plan)', '現房 (Ready)'],
+                    // Forecast
+                    forecastTitle: '市場預測 2025-2027',
+                    forecastLegend: ['價格增長率', '新增供應'],
+                    forecastYAxis1: '增長率 (%)',
+                    forecastYAxis2: '新增供應 (萬套)'
+                }
+            },
+            'zh-CN': {
+                pageTitle: '迪拜房地产市场分析 Q3 2025 | Meaven Group',
+                // New Nav
+                navTitle: 'MEAVEN | Meaven Group - Dubai Real Estate Insights',
+                navLink1: '核心数据',
+                navLink2: '物业结构',
+                navLink3: '投资机会',
+                navLink4: '未来展望',
+                // New Hero
+                heroTitleNew: '迪拜房地产｜<span class="hero-title-accent">Q3 2025</span> 市场分析',
+                heroSubtitleNew: 'DUBAI REAL ESTATE MARKET ANALYSIS — Q3 2025',
+                heroDescription: 'Q3 2025 创下历史新高的单季成交量与金额。此页以可视化方式呈现交易规模、物业结构、关键驱动与未来展望，帮助投资者快速理解市场脉动。',
+                heroBtn1: '查看核心数据',
+                // heroBtn2: 'Methods / Sources', // REMOVED
+                kpiTitle: 'Quarter KPI',
+                kpi1Val: '59,228',
+                kpi1Desc: '单季成交量 / Q3 Transactions',
+                kpi1YoY: '+17.2%',
+                kpi1YoYDesc: '交易量 (年增率)', // MODIFIED
+                kpi2Val: 'AED 1707 亿', // MODIFIED
+                kpi2Desc: '单季成交额 / Q3 Sales Value',
+                kpi2YoY: '+19.9%',
+                kpi2YoYDesc: '金额 (年增率)', // MODIFIED
+                // Summary
+                summaryTitle: 'Meaven 专家解读',
+                summarySubtitle: '为何 Q3 数据对您至关重要',
+                // MODIFIED: Split summaryText1 into parts for new layout
+                summaryText1_intro: '迪拜 Q3 市场再创新高，但数据背后隐藏着三大关键信号：',
+                summaryPoint1: '交易量与价值同步增长 (17% vs 19%)，显示市场由自住者和长期投资者主导，而非短期炒作。',
+                summaryPoint2: '73% 的占比显示全球投资者对迪拜未来的强烈信心，黄金签证是主要催化剂。',
+                summaryPoint3: '均价 1940 万美元的豪宅交易量增长 24%，证明迪拜作为全球财富避风港的地位日益巩固。',
+                summaryText2: '对投资者而言，这意味着市场正处于「健康增长」而非「泡沫」阶段。现在的窗口期是利用期房杠杆锁定未来价值的绝佳时机。',
+                // New YTD Metrics
+                ytdTitle: '核心数据<span class="english-accent">Key Metrics (YTD)</span>',
+                ytd1Title: '1-9月成交额',
+                ytd1Val: 'AED 4988 亿', // MODIFIED
+                ytd1Desc: '9-Month Sales Value',
+                ytd2Title: '1-9月成交量',
+                ytd2Val: '158,200',
+                ytd2Desc: 'Total Transactions (9M)',
+                ytd3Title: '年增率 (金额)',
+                ytd3Val: '+32.3%',
+                ytd3Desc: '金额年增率', // MODIFIED
+                ytd4Title: '年增率 (交易量)',
+                ytd4Val: '+20.5%',
+                ytd4Desc: '交易量年增率', // MODIFIED
+                // Overview
+                overviewTitle: '市场概览<span class="english-accent">Market Overview</span>',
+                overviewText1: '2025年第三季度，<span class="highlight-text">迪拜房地产市场创下历史最高季度交易量</span>，总交易额达到1,707亿迪拉姆（465亿美元），交易量达59,228笔。',
+                overviewText2: '与去年同期相比，交易量增长17.2%，交易价值增长19.9%。这种平衡的增长模式表明，市场由真实需求而非投机过度推动，展现出健康的市场动态。',
+                // Old Metrics (Now integrated into 'invest' section)
+                metrics3: { title: '租金回报', desc1: 'Annual Yield', desc2: '全球领先水平' },
+                metrics4: { title: '人口增长', desc1: 'Current Population', desc2: '2025新增9,800位百万富翁' },
+                // Luxury
+                luxuryTitle: '豪华房产市场<span class="english-accent">Ultra-Prime Segment</span>',
+                luxuryValue: '103<span class="english-accent">$10M+ Transactions</span>',
+                luxuryText: '第三季度录得103笔超过1,000万美元的豪宅交易，同比增长24%。其中17笔交易价格超过2,500万美元，<span class="highlight-text">最高成交价达9,530万美元</span>。',
+                luxuryStat1: { title: 'Palm Jumeirah', desc: '豪宅交易占比' },
+                luxuryStat2: { title: 'Average Deal Value', desc: '年增率 +23.8%', value: '1940 万美元' }, // MODIFIED
+                // Developers
+                devTitle: '开发商表现<span class="english-accent">Top Developers</span>',
+                dev1: { title: 'Emaar Properties', desc1: 'H1 2025销售额 | 年增率 +46%', desc2: '标志性项目包括 Address Residences Dubai Opera' }, // MODIFIED
+                dev2: { title: 'DAMAC Properties', value: '品牌豪宅', desc1: 'Lagoon主题别墅系列', desc2: '与Roberto Cavalli等国际品牌合作' },
+                dev3: { title: 'Nakheel', desc1: 'Dubai Islands开发资金', desc2: '大型滨水项目领导者' },
+                // Investment
+                investTitle: '投资机会<span class="english-accent">Investment Hotspots & Drivers</span>',
+                invest1: { title: 'Downtown Dubai', desc1: '年租金回报率', desc2: '核心地段，邻近Burj Khalifa' },
+                invest2: { title: 'Dubai Marina', desc1: '年租金回报率', desc2: '滨海生活方式，成熟社区' },
+                invest3: { title: 'Jumeirah Village Circle', desc1: '年租金回报率', desc2: '高性价比，家庭友好' },
+                // New Property Segments
+                segmentsTitle: '物业结构<span class="english-accent">Property Segments</span>',
+                segmentsSub1: 'Q3 类型占比: Apartments / Villas / Plots / Commercial',
+                segmentsSub2: '市场结构: Off-plan vs Ready',
+                segmentList1: '<strong>公寓 (Apartments):</strong> 49,370 宗、AED 943 亿 (年增率 +25.9%)', // MODIFIED
+                segmentList2: '<strong>别墅 (Villas):</strong> 7,078 宗、AED 431 亿', // MODIFIED
+                segmentList3: '<strong>地块 (Plots):</strong> 1,214 宗、AED 361 亿 (交易量年增率 +25.7%)', // MODIFIED
+                segmentList4: '<strong>商办 (Commercial):</strong> 1,565 宗、AED 42 亿 (交易量年增率 +41.9%)', // MODIFIED
+                segmentsDesc: 'Q3 交易量比重: <strong class="text-primary-color">Off-plan 73%</strong> / Ready 27%<br>金额比重: <strong class="text-primary-color">Off-plan 66%</strong> / Ready 34%',
+                // Outlook
+                outlookTitle: '未来展望<span class="english-accent">Future Outlook</span>',
+                outlookText: '分析师预计2025年底前市场将<span class="highlight-text">「软着陆」</span>，而非急剧调整。得益于高度的真实需求和相对受控的抵押贷款杠杆。',
+                outlook1: { title: '供应增加但需求强劲', desc: '2025年预计交付90,000个单位，2026年120,000个单位' },
+                outlook2: { title: '价格增长放缓但稳定', desc: '预计年增长率5-7%，避免市场过热' },
+                outlook3: { title: 'D33经济计划支撑', desc: '目标到2033年将经济规模翻倍，成为全球四大金融中心之一' },
+                outlook4: { title: '区块链房地产代币化', desc: '到2033年市场规模预计达160亿美元' },
+                // Visa
+                visaTitle: '黄金签证计划<span class="english-accent">Golden Visa Program</span>',
+                visa1: { title: '2年签证', desc1: '最低投资门槛', desc2: '约20.4万美元' },
+                visa2: { title: '3年签证', desc1: '中等投资门槛', desc2: '约54.5万美元' },
+                visa3: { title: '10年签证', desc1: '黄金签证', desc2: '包括期房和抵押房产' },
+                // About
+                aboutTitle: '关于 Meaven',
+                aboutTitleEN: '您最值得信赖的迪拜投资伙伴',
+                aboutSubtitle: '选择 Meaven，就是选择迪拜房产投资的最高保障。',
+                aboutP1: 'Meaven 是持有迪拜经济部 (DED) 核发正规房地产执照的顾问公司，并取得 RERA (Real Estate Regulatory Agency) 的官方认证。RERA 是迪拜政府的房地产监管机构，负责保护买卖双方的权益，确保所有交易的透明、安全与公正。只有具备 RERA 资质，才是真正合规、值得信赖的房产经纪公司。',
+                aboutP2: '我们与 Emaar、DAMAC、Sobha 等迪拜各大顶级开发商均建立官方合作关系，直接签署合约，这与坊间一般的「代销公司」有着根本上的不同。许多代销公司信息层层转包、价格不透明，甚至在遇到问题时责任不清。选择 Meaven，代表您是直接与开发商站在同一阵线，享受官方价格、优先选房权，以及最即时、准确的建案信息。',
+                aboutServicesTitle: '一站式的整合服务',
+                aboutS1: '<strong>量身订制房产推荐：</strong>无论您是追求高租金回报、长期资产增值或自住需求，我们都能依据您的目标，推荐最合适的投资项目。',
+                aboutS2: '<strong>解决跨境金流难题：</strong>完美处理您从海外跨境汇款至迪拜的复杂流程，确保资金安全、高效到帐。',
+                aboutS3: '<strong>一站式企业服务：</strong>专业协助您完成迪拜公司设立、银行开户、税务规划等，为您的事业版图打下坚实基础。',
+                aboutS4: '<strong>多元化资产配置：</strong>我们也能在黄金贸易、虚拟货币、家族办公室 (Family Office) 在迪拜的真实运作与架构等领域，为您提供合规、安全的资产配置服务。',
+                aboutP3: 'Meaven 的服务网络遍布全球，在迪拜、香港、台湾、上海、成都均设有办事处与专业团队，为您提供零时差的在地服务。',
+                // Footer
+                footerTitle: 'Meaven Group',
+                footerSubtitle: '专业房地产投资顾问',
+                footerSource: '资料来源 (Source): DXBinteract, Gulf News, Arabian Business, Economy Middle East, Dubai Land Department, Metropolitan 等。本报告内容基于公开新闻与迪拜官方数据编译设计。',
+                footerCopyright: '&copy; 2025 Meaven Group. All rights reserved.',
+                footerDisclaimer: '海外不动产投资，具有风险性，请投资人详阅行销文件并审慎考量后再行交易。', // ADDED
+                // Charts
+                charts: {
+                    transactionTitle: '季度交易趋势',
+                    transactionYAxis: '交易量',
+                    transactionSeries: '交易量',
+                    luxuryTitle: '豪宅市场交易分布',
+                    luxurySubtext: 'Q3 2025',
+                    luxurySeries: ['Palm Jumeirah', 'Jumeirah 2', 'Downtown Dubai', 'Dubai Hills', '其他区域'],
+                    devTitle: '主要开发商市场份额',
+                    devYAxis: ['其他', 'Meraas/DH', 'Nakheel', 'Sobha', 'DAMAC', 'Emaar'],
+                    // New Chart Keys
+                    segmentsDonutTitle: 'Q3 物业类型',
+                    segmentsDonutSeries: ['公寓', '别墅', '地块', '商办'],
+                    structureDonutTitle: '市场结构',
+                    structureDonutSeries: ['期房 (Off-plan)', '现房 (Ready)'],
+                    // Forecast
+                    forecastTitle: '市场预测 2025-2027',
+                    forecastLegend: ['价格增长率', '新增供应'],
+                    forecastYAxis1: '增长率 (%)',
+                    forecastYAxis2: '新增供应 (万套)'
+                }
+            },
+            'en': {
+                pageTitle: 'Dubai Real Estate Market Analysis Q3 2025 | Meaven Group',
+                // New Nav
+                navTitle: 'MEAVEN | Meaven Group - Dubai Real Estate Insights',
+                navLink1: 'Key Metrics',
+                navLink2: 'Segments',
+                navLink3: 'Drivers',
+                navLink4: 'Outlook',
+                // New Hero
+                heroTitleNew: 'Dubai Real Estate | <span class="hero-title-accent">Q3 2025</span> Market Analysis',
+                heroSubtitleNew: 'DUBAI REAL ESTATE MARKET ANALYSIS — Q3 2025',
+                heroDescription: 'Q3 2025 set a new record for quarterly transaction volume and value. This page visualizes the market scale, property segments, key drivers, and future outlook to help investors quickly understand market dynamics.',
+                heroBtn1: 'View Key Metrics',
+                // heroBtn2: 'Methods / Sources', // REMOVED
+                kpiTitle: 'Quarter KPI',
+                kpi1Val: '59,228',
+                kpi1Desc: 'Q3 Transactions',
+                kpi1YoY: '+17.2%',
+                kpi1YoYDesc: 'YoY Volume', // No change for EN
+                kpi2Val: 'AED 170.7B', // No change for EN
+                kpi2Desc: 'Q3 Sales Value',
+                kpi2YoY: '+19.9%',
+                kpi2YoYDesc: 'YoY Value', // No change for EN
+                // Summary
+                summaryTitle: 'Meaven Expert Analysis',
+                summarySubtitle: 'Why This Q3 Data Matters to You',
+                // MODIFIED: Split summaryText1 into parts for new layout
+                summaryText1_intro: "Dubai's Q3 market hit new highs, but beneath the numbers are three key signals:",
+                summaryPoint1: "Volume and value grew in lockstep (17% vs 19%), showing the market is led by end-users and long-term investors, not short-term speculation.",
+                summaryPoint2: "The 73% share signals immense global investor confidence in Dubai's future, catalyzed by the Golden Visa.",
+                summaryPoint3: "A 24% rise in $10M+ deals (avg. $19.4M) solidifies Dubai's status as a premier global safe-haven for wealth.",
+                summaryText2: "For investors, this signals a 'healthy growth' phase, not a 'bubble'. The current window is a prime opportunity to leverage off-plan properties to secure future value.",
+                // New YTD Metrics
+                ytdTitle: 'Key Metrics<span class="english-accent">Key Metrics (YTD)</span>',
+                ytd1Title: '9-Month Sales Value',
+                ytd1Val: 'AED 498.8B',
+                ytd1Desc: '9-Month Sales Value',
+                ytd2Title: '9-Month Transactions',
+                ytd2Val: '158,200',
+                ytd2Desc: 'Total Transactions (9M)',
+                ytd3Title: 'YoY Value Growth',
+                ytd3Val: '+32.3%',
+                ytd3Desc: 'YoY Value Growth',
+                ytd4Title: 'YoY Volume Growth',
+                ytd4Val: '+20.5%',
+                ytd4Desc: 'YoY Volume Growth',
+                // Overview
+                overviewTitle: 'Market Overview<span class="english-accent">Market Overview</span>',
+                overviewText1: 'In Q3 2025, the <span class="highlight-text">Dubai real estate market set a new record for quarterly transactions</span>, with a total value of AED 170.7B ($46.5B) from 59,228 deals.',
+                overviewText2: 'Compared to the same period last year, transaction volume increased by 17.2% and value by 19.9%. This balanced growth pattern indicates a healthy market dynamic driven by real demand rather than excessive speculation.',
+                // Old Metrics (Now integrated into 'invest' section)
+                metrics3: { title: 'Rental Yields', desc1: 'Annual Yield', desc2: 'Globally competitive' },
+                metrics4: { title: 'Population Growth', desc1: 'Current Population', desc2: '9,800 new millionaires in 2025' },
+                // Luxury
+                luxuryTitle: 'Ultra-Prime Segment<span class="english-accent">Ultra-Prime Segment</span>',
+                luxuryValue: '103<span class="english-accent">$10M+ Transactions</span>',
+                luxuryText: 'Q3 saw 103 luxury transactions over $10M, a 24% YoY increase. 17 of these exceeded $25M, with the <span class="highlight-text">highest sale reaching $95.3M</span>.',
+                luxuryStat1: { title: 'Palm Jumeirah', desc: 'Share of luxury deals' },
+                luxuryStat2: { title: 'Average Deal Value', desc: 'YoY +23.8%', value: '$19.4M' }, // MODIFIED (Added value key)
+                // Developers
+                devTitle: 'Top Developers<span class="english-accent">Top Developers</span>',
+                dev1: { title: 'Emaar Properties', desc1: 'H1 2025 Sales | YoY +46%', desc2: 'Iconic projects incl. Address Residences Dubai Opera' },
+                dev2: { title: 'DAMAC Properties', value: 'Branded Residences', desc1: 'Lagoon-themed villa series', desc2: 'Partnerships with Cavalli, etc.' },
+                dev3: { title: 'Nakheel', desc1: 'Dubai Islands Development Fund', desc2: 'Leader in large-scale waterfront projects' },
+                // Investment
+                investTitle: 'Investment Hotspots<span class="english-accent">Investment Hotspots & Drivers</span>',
+                invest1: { title: 'Downtown Dubai', desc1: 'Annual Rental Yield', desc2: 'Prime location, near Burj Khalifa' },
+                invest2: { title: 'Dubai Marina', desc1: 'Annual Rental Yield', desc2: 'Waterfront lifestyle, mature community' },
+                invest3: { title: 'Jumeirah Village Circle', desc1: 'Annual Rental Yield', desc2: 'High value, family-friendly' },
+                // New Property Segments
+                segmentsTitle: 'Property Segments<span class="english-accent">Property Segments</span>',
+                segmentsSub1: 'Q3 Segment Share: Apartments / Villas / Plots / Commercial',
+                segmentsSub2: 'Market Structure: Off-plan vs Ready',
+                segmentList1: '<strong>Apartments:</strong> 49,370 units, AED 94.3B (+25.9% YoY)',
+                segmentList2: '<strong>Villas:</strong> 7,078 units, AED 43.1B',
+                segmentList3: '<strong>Plots:</strong> 1,214 units, AED 36.1B (Vol +25.7% YoY)',
+                segmentList4: '<strong>Commercial:</strong> 1,565 units, AED 4.2B (Vol +41.9% YoY)',
+                segmentsDesc: 'Q3 Transaction Volume: <strong class="text-primary-color">Off-plan 73%</strong> / Ready 27%<br>Transaction Value: <strong class="text-primary-color">Off-plan 66%</strong> / Ready 34%',
+                // Outlook
+                outlookTitle: 'Future Outlook<span class="english-accent">Future Outlook</span>',
+                outlookText: 'Analysts expect a <span class="highlight-text">"soft landing"</span> by the end of 2025, rather than a sharp correction, thanks to high real demand and relatively controlled mortgage leverage.',
+                outlook1: { title: 'Increased Supply, Strong Demand', desc: '90,000 units expected in 2025, 120,000 in 2026' },
+                outlook2: { title: 'Price Growth Slowing but Stable', desc: 'Expected annual growth of 5-7%, avoiding overheating' },
+                outlook3: { title: 'D33 Economic Agenda Support', desc: 'Goal to double economy by 2033, become top 4 global financial hub' },
+                outlook4: { title: 'Blockchain & Tokenization', desc: 'Market size expected to reach $16B by 2033' },
+                // Visa
+                visaTitle: 'Golden Visa Program<span class="english-accent">Golden Visa Program</span>',
+                visa1: { title: '2-Year Visa', desc1: 'Minimum Investment', desc2: 'Approx. $204,000' },
+                visa2: { title: '3-Year Visa', desc1: 'Medium Investment', desc2: 'Approx. $545,000' },
+                visa3: { title: '10-Year Visa', desc1: 'Golden Visa', desc2: 'Includes off-plan & mortgaged properties' },
+                // About
+                aboutTitle: 'About Meaven',
+                aboutTitleEN: 'Your Most Trusted Dubai Investment Partner',
+                aboutSubtitle: 'Choosing Meaven means choosing the highest security for your Dubai property investment.',
+                aboutP1: 'Meaven is a consulting firm with a formal real estate license issued by the Dubai Department of Economic Development (DED) and is officially certified by RERA (Real Estate Regulatory Agency). RERA is the Dubai government\'s regulatory body responsible for protecting the rights of buyers and sellers, ensuring all transactions are transparent, secure, and fair. Only RERA-qualified firms are truly compliant and trustworthy real estate agencies.',
+                aboutP2: 'We have established official partnerships and direct contracts with all of Dubai\'s top developers, including Emaar, DAMAC, and Sobha. This is fundamentally different from typical "sub-agents." Many sub-agents have multi-layered information, non-transparent pricing, and unclear accountability when issues arise. Choosing Meaven means you are directly aligned with the developers, enjoying official pricing, priority unit selection, and the most immediate, accurate project information.',
+                aboutServicesTitle: 'One-Stop Integrated Services',
+                aboutS1: '<strong>Customized Property Recommendations:</strong> Whether you are pursuing high rental returns, long-term capital appreciation, or self-occupancy, we recommend the most suitable investment projects based on your goals.',
+                aboutS2: '<strong>Cross-Border Fund Solutions:</strong> We perfectly handle the complex process of cross-border remittances from overseas to Dubai, ensuring your funds are secure and arrive efficiently.',
+                aboutS3: '<strong>One-Stop Corporate Services:</strong> We professionally assist you with Dubai company formation, bank account opening, and tax planning, laying a solid foundation for your business empire.',
+                aboutS4: '<strong>Diversified Asset Allocation:</strong> We also provide compliant and secure asset allocation services in areas such as gold trading, virtual currencies, and the real-world operation and structuring of Family Offices in Dubai.',
+                aboutP3: 'Meaven\'s service network spans the globe, with offices and professional teams in Dubai, Hong Kong, Taiwan, Shanghai, and Chengdu, providing you with zero-time-difference local services.',
+                // Footer
+                footerTitle: 'Meaven Group',
+                footerSubtitle: 'Professional Real Estate Investment Advisors',
+                footerSource: 'Data Sources: DXBinteract, Gulf News, Arabian Business, Economy Middle East, Dubai Land Department, Metropolitan, etc. This report is compiled and designed based on public news and official data.',
+                footerCopyright: '&copy; 2025 Meaven Group. All rights reserved.',
+                footerDisclaimer: 'Overseas real estate investment involves risks. Investors should read the marketing documents and consider carefully before trading.', // ADDED
+                // Charts
+                charts: {
+                    transactionTitle: 'Quarterly Transaction Trends',
+                    transactionYAxis: 'Volume',
+                    transactionSeries: 'Transactions',
+                    luxuryTitle: 'Luxury Market Distribution',
+                    luxurySubtext: 'Q3 2025',
+                    luxurySeries: ['Palm Jumeirah', 'Jumeirah 2', 'Downtown Dubai', 'Dubai Hills', 'Other Areas'],
+                    devTitle: 'Top Developer Market Share',
+                    devYAxis: ['Others', 'Meraas/DH', 'Nakheel', 'Sobha', 'DAMAC', 'Emaar'],
+                    // New Chart Keys
+                    segmentsDonutTitle: 'Q3 Property Types',
+                    segmentsDonutSeries: ['Apartments', 'Villas', 'Plots', 'Commercial'],
+                    structureDonutTitle: 'Market Structure',
+                    structureDonutSeries: ['Off-plan', 'Ready'],
+                    // Forecast
+                    forecastTitle: 'Market Forecast 2025-2027',
+                    forecastLegend: ['Price Growth Rate', 'New Supply'],
+                    forecastYAxis1: 'Growth Rate (%)',
+                    forecastYAxis2: 'New Supply (10k units)'
+                }
+            }
+        };
+
+        // Helper function for safe text updates
+        function updateText(id, html) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.innerHTML = html;
+            } else {
+                console.warn("[Translation] Element with ID '" + id + "' not found.");
+            }
+        };
+
+        // *** NEW: Function to toggle mobile menu ***
+        function toggleMobileMenu() {
+            var menu = document.getElementById('mobile-menu');
+            var buttonIcon = document.querySelector('#mobile-menu-button i');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                buttonIcon.classList.remove('fa-bars');
+                buttonIcon.classList.add('fa-times');
+            } else {
+                menu.classList.add('hidden');
+                buttonIcon.classList.remove('fa-times');
+                buttonIcon.classList.add('fa-bars');
+            }
+        }
+
+        // Function to update all text on the page
+        function changeLanguage(lang) {
+            currentLang = lang;
+            var t = translations[lang];
+
+            // Set page lang and title
+            document.documentElement.lang = lang;
+            document.title = t.pageTitle;
+
+            // Update Nav
+            updateText('navTitle', t.navTitle);
+            updateText('navLink1', t.navLink1);
+            updateText('navLink2', t.navLink2);
+            updateText('navLink3', t.navLink3);
+            updateText('navLink4', t.navLink4);
+
+            // Update Hero
+            updateText('heroTitleNew', t.heroTitleNew);
+            updateText('heroSubtitleNew', t.heroSubtitleNew);
+            updateText('heroDescription', t.heroDescription);
+            updateText('heroBtn1', t.heroBtn1);
+            // updateText('heroBtn2', t.heroBtn2); // Button removed
+            updateText('kpiTitle', t.kpiTitle);
+            updateText('kpi1Val', t.kpi1Val);
+            updateText('kpi1Desc', t.kpi1Desc);
+            updateText('kpi1YoY', t.kpi1YoY);
+            updateText('kpi1YoYDesc', t.kpi1YoYDesc);
+            updateText('kpi2Val', t.kpi2Val);
+            updateText('kpi2Desc', t.kpi2Desc);
+            updateText('kpi2YoY', t.kpi2YoY);
+            updateText('kpi2YoYDesc', t.kpi2YoYDesc);
+
+            // Update Summary Section
+            updateText('summaryTitle', t.summaryTitle);
+            updateText('summarySubtitle', t.summarySubtitle);
+            // MODIFIED: Update new summary structure
+            updateText('summaryText1_intro', t.summaryText1_intro);
+            updateText('summaryPoint1', t.summaryPoint1);
+            updateText('summaryPoint2', t.summaryPoint2);
+            updateText('summaryPoint3', t.summaryPoint3);
+            updateText('summaryText2', t.summaryText2);
+
+            // Update YTD Metrics
+            updateText('ytdTitle', t.ytdTitle);
+            updateText('ytd1Title', t.ytd1Title);
+            updateText('ytd1Val', t.ytd1Val);
+            updateText('ytd1Desc', t.ytd1Desc);
+            updateText('ytd2Title', t.ytd2Title);
+            updateText('ytd2Val', t.ytd2Val);
+            updateText('ytd2Desc', t.ytd2Desc);
+            updateText('ytd3Title', t.ytd3Title);
+            updateText('ytd3Val', t.ytd3Val);
+            updateText('ytd3Desc', t.ytd3Desc);
+            updateText('ytd4Title', t.ytd4Title);
+            updateText('ytd4Val', t.ytd4Val);
+            updateText('ytd4Desc', t.ytd4Desc);
+
+            // Update Overview
+            updateText('overviewTitle', t.overviewTitle);
+            updateText('overviewText1', t.overviewText1);
+            updateText('overviewText2', t.overviewText2);
+
+            // Update Integrated Metrics (from old section)
+            updateText('metrics3-title', t.metrics3.title);
+            updateText('metrics3-desc1', t.metrics3.desc1);
+            updateText('metrics3-desc2', t.metrics3.desc2);
+            updateText('metrics4-title', t.metrics4.title);
+            updateText('metrics4-desc1', t.metrics4.desc1);
+            updateText('metrics4-desc2', t.metrics4.desc2);
+
+            // Update Luxury
+            updateText('luxuryTitle', t.luxuryTitle);
+            updateText('luxuryValue', t.luxuryValue);
+            updateText('luxuryText', t.luxuryText);
+            updateText('luxuryStat1-title', t.luxuryStat1.title);
+            updateText('luxuryStat1-desc', t.luxuryStat1.desc);
+            updateText('luxuryStat2-title', t.luxuryStat2.title);
+            updateText('luxuryStat2-desc', t.luxuryStat2.desc);
+            updateText('luxuryStat2-value', t.luxuryStat2.value); // ADDED
+
+            // Update Developers
+            updateText('devTitle', t.devTitle);
+            updateText('dev1-title', t.dev1.title);
+            updateText('dev1-desc1', t.dev1.desc1);
+            updateText('dev1-desc2', t.dev1.desc2);
+            updateText('dev2-title', t.dev2.title);
+            updateText('dev2-value', t.dev2.value);
+            updateText('dev2-desc1', t.dev2.desc1);
+            updateText('dev2-desc2', t.dev2.desc2);
+            updateText('dev3-title', t.dev3.title);
+            updateText('dev3-desc1', t.dev3.desc1);
+            updateText('dev3-desc2', t.dev3.desc2);
+
+            // Update Investment
+            updateText('investTitle', t.investTitle);
+            updateText('invest1-title', t.invest1.title);
+            updateText('invest1-desc1', t.invest1.desc1);
+            updateText('invest1-desc2', t.invest1.desc2);
+            updateText('invest2-title', t.invest2.title);
+            updateText('invest2-desc1', t.invest2.desc1);
+            updateText('invest2-desc2', t.invest2.desc2);
+            updateText('invest3-title', t.invest3.title);
+            updateText('invest3-desc1', t.invest3.desc1);
+            updateText('invest3-desc2', t.invest3.desc2);
+
+            // Update Property Segments
+            updateText('segmentsTitle', t.segmentsTitle);
+            updateText('segmentsSub1', t.segmentsSub1);
+            updateText('segmentsSub2', t.segmentsSub2);
+            updateText('segmentList1', '<span class="segment-color-dot" style="background-color: #009144;"></span><span>' + t.segmentList1 + '</span>');
+            updateText('segmentList2', '<span class="segment-color-dot" style="background-color: #FFB800;"></span><span>' + t.segmentList2 + '</span>');
+            updateText('segmentList3', '<span class="segment-color-dot" style="background-color: #212529;"></span><span>' + t.segmentList3 + '</span>');
+            updateText('segmentList4', '<span class="segment-color-dot" style="background-color: #20C997;"></span><span>' + t.segmentList4 + '</span>');
+            updateText('segmentsDesc', t.segmentsDesc);
+            
+            // Update Outlook
+            updateText('outlookTitle', t.outlookTitle);
+            updateText('outlookText', t.outlookText);
+            updateText('outlook1-title', t.outlook1.title);
+            updateText('outlook1-desc', t.outlook1.desc);
+            updateText('outlook2-title', t.outlook2.title);
+            updateText('outlook2-desc', t.outlook2.desc);
+            updateText('outlook3-title', t.outlook3.title);
+            updateText('outlook3-desc', t.outlook3.desc);
+            updateText('outlook4-title', t.outlook4.title);
+            updateText('outlook4-desc', t.outlook4.desc);
+
+            // Update Visa
+            updateText('visaTitle', t.visaTitle);
+            updateText('visa1-title', t.visa1.title);
+            updateText('visa1-desc1', t.visa1.desc1);
+            updateText('visa1-desc2', t.visa1.desc2);
+            updateText('visa2-title', t.visa2.title);
+            updateText('visa2-desc1', t.visa2.desc1);
+            updateText('visa2-desc2', t.visa2.desc2);
+            updateText('visa3-title', t.visa3.title);
+            updateText('visa3-desc1', t.visa3.desc1);
+            updateText('visa3-desc2', t.visa3.desc2);
+
+            // Update About Meaven Section
+            updateText('aboutTitle', t.aboutTitle);
+            updateText('aboutTitleEN', t.aboutTitleEN);
+            updateText('aboutSubtitle', t.aboutSubtitle);
+            updateText('aboutP1', t.aboutP1);
+            updateText('aboutP2', t.aboutP2);
+            updateText('aboutServicesTitle', t.aboutServicesTitle);
+            updateText('aboutS1', '<i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i><span>' + t.aboutS1 + '</span>');
+            updateText('aboutS2', '<i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i><span>' + t.aboutS2 + '</span>');
+            updateText('aboutS3', '<i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i><span>' + t.aboutS3 + '</span>');
+            updateText('aboutS4', '<i class="fas fa-check-circle text-accent-color text-xl mr-3 mt-1"></i><span>' + t.aboutS4 + '</span>');
+            updateText('aboutP3', t.aboutP3);
+
+            // Update Footer
+            updateText('footerTitle', t.footerTitle);
+            updateText('footerSubtitle', t.footerSubtitle);
+            updateText('footerSource', t.footerSource);
+            updateText('footerCopyright', t.footerCopyright);
+            updateText('footerDisclaimer', t.footerDisclaimer); // ADDED
+            
+            // Re-initialize charts with new language
+            initCharts(lang);
+        }
+
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll animations
+            window.addEventListener('scroll', function() {
+                var scrolled = window.pageYOffset;
+                // We no longer have auroraBg, so remove this animation
+            });
+            
+            // Intersection Observer for fade-in animations
+            var observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            var fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(function(el) {
+                observer.observe(el);
+            });
+            
+            // MODIFIED: Initialize language and charts on window.onload instead of DOMContentLoaded
+            // changeLanguage(currentLang); 
+        });
+
+        // ADDED: Initialize language and charts after the full page (including scripts) is loaded
+        window.onload = function() {
+            // MODIFIED: Check if echarts is defined before initializing
+            if (typeof echarts !== 'undefined') {
+                changeLanguage(currentLang);
+            } else {
+                console.error("ECharts library is not loaded.");
+                // Optionally, you can try loading it again or show an error message.
+            }
+        };
+        
+        function initCharts(lang) {
+            // ADDED: Check if echarts is available before proceeding
+            if (typeof echarts === 'undefined') {
+                console.error("ECharts library is not loaded. Cannot initialize charts.");
+                return; 
+            }
+
+            lang = lang || currentLang || 'zh-TW';
+            // *** FIX: Access the 'charts' object within translations ***
+            var t = translations[lang].charts; 
+
+            // Dispose old charts
+            if (transactionChart) transactionChart.dispose();
+            if (luxuryChart) luxuryChart.dispose();
+            if (developerChart) developerChart.dispose();
+            if (forecastChart) forecastChart.dispose();
+            // Dispose new chart instances if they exist
+            if (propertySegmentsChart) propertySegmentsChart.dispose();
+            if (marketStructureChart) marketStructureChart.dispose();
+
+            // Transaction Volume Chart (Still used in Overview)
+            if (document.getElementById('transactionChart')) {
+                transactionChart = echarts.init(document.getElementById('transactionChart'));
+                transactionChart.setOption({
+                    title: { text: t.transactionTitle, textStyle: { color: '#212529', fontSize: 18 } },
+                    tooltip: { trigger: 'axis' },
+                    xAxis: { type: 'category', data: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025', 'Q2 2025', 'Q3 2025'] },
+                    yAxis: { type: 'value', name: t.transactionYAxis },
+                    series: [{
+                        name: t.transactionSeries,
+                        type: 'line',
+                        smooth: true,
+                        data: [42000, 45000, 47049, 48000, 52000, 54000, 59228],
+                        lineStyle: { width: 3, color: '#009144' },
+                        areaStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0, color: 'rgba(0, 145, 68, 0.3)'
+                            }, {
+                                offset: 1, color: 'rgba(0, 145, 68, 0.05)'
+                            }])
+                        }
+                    }]
+                });
+            }
+            
+            // Luxury Market Chart (Still used)
+            if (document.getElementById('luxuryChart')) {
+                luxuryChart = echarts.init(document.getElementById('luxuryChart'));
+                luxuryChart.setOption({
+                    title: { text: t.luxuryTitle, subtext: t.luxurySubtext, textStyle: { color: '#212529', fontSize: 18 } },
+                    tooltip: { trigger: 'item' },
+                    series: [{
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        avoidLabelOverlap: false,
+                        itemStyle: { borderRadius: 10, borderColor: '#fff', borderWidth: 2 },
+                        label: { show: true, position: 'outside' },
+                        data: [
+                            {value: 35, name: t.luxurySeries[0], itemStyle: {color: '#009144'}},
+                            {value: 18, name: t.luxurySeries[1], itemStyle: {color: '#20C997'}},
+                            {value: 15, name: t.luxurySeries[2], itemStyle: {color: '#FFB800'}},
+                            {value: 12, name: t.luxurySeries[3], itemStyle: {color: '#FF6B6B'}},
+                            {value: 23, name: t.luxurySeries[4], itemStyle: {color: '#4ECDC4'}}
+                        ]
+                    }]
+                });
+            }
+            
+            // Developer Performance Chart (Still used)
+            if (document.getElementById('developerChart')) {
+                developerChart = echarts.init(document.getElementById('developerChart'));
+                developerChart.setOption({
+                    title: { text: t.devTitle, textStyle: { color: '#212529', fontSize: 18 } },
+                    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+                    grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+                    xAxis: { type: 'value' },
+                    yAxis: { type: 'category', data: t.devYAxis },
+                    series: [{
+                        type: 'bar',
+                        data: [
+                            {value: 15, itemStyle: {color: '#95E1D3'}},
+                            {value: 12, itemStyle: {color: '#4ECDC4'}},
+                            {value: 14, itemStyle: {color: '#FFB800'}},
+                            {value: 16, itemStyle: {color: '#20C997'}},
+                            {value: 18, itemStyle: {color: '#009144'}},
+                            {value: 25, itemStyle: {color: '#006633'}}
+                        ],
+                        label: { show: true, position: 'right' }
+                    }]
+                });
+            }
+            
+            // *** NEW CHART: Property Segments ***
+            // *** FIX: Added t.charts. to access the keys correctly ***
+            if (document.getElementById('propertySegmentsChart')) {
+                propertySegmentsChart = echarts.init(document.getElementById('propertySegmentsChart'));
+                propertySegmentsChart.setOption({
+                    tooltip: { trigger: 'item', formatter: '{b}: {d}%' },
+                    legend: { show: false },
+                    series: [{
+                        name: t.segmentsDonutTitle,
+                        type: 'pie',
+                        radius: ['60%', '80%'],
+                        avoidLabelOverlap: false,
+                        label: { show: false, position: 'center' },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: 24,
+                                fontWeight: 'bold',
+                                formatter: '{b}\n{d}%'
+                            }
+                        },
+                        labelLine: { show: false },
+                        data: [
+                            {value: 83.36, name: t.segmentsDonutSeries[0], itemStyle: {color: '#009144'}},
+                            {value: 11.56, name: t.segmentsDonutSeries[1], itemStyle: {color: '#FFB800'}},
+                            {value: 2.05, name: t.segmentsDonutSeries[2], itemStyle: {color: '#212529'}},
+                            // Calculated: 100 - 83.36 - 11.56 - 2.05 = 3.03
+                            {value: 3.03, name: t.segmentsDonutSeries[3], itemStyle: {color: '#20C997'}}
+                        ]
+                    }]
+                });
+            }
+
+            // *** NEW CHART: Market Structure ***
+            // *** FIX: Added t.charts. to access the keys correctly ***
+            if (document.getElementById('marketStructureChart')) {
+                marketStructureChart = echarts.init(document.getElementById('marketStructureChart'));
+                marketStructureChart.setOption({
+                    tooltip: { trigger: 'item', formatter: '{b}: {d}%' },
+                    legend: { show: false },
+                    series: [{
+                        name: t.structureDonutTitle,
+                        type: 'pie',
+                        radius: ['60%', '80%'],
+                        avoidLabelOverlap: false,
+                        label: { show: false, position: 'center' },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: 24,
+                                fontWeight: 'bold',
+                                formatter: '{b}\n{d}%'
+                            }
+                        },
+                        labelLine: { show: false },
+                        data: [
+                            {value: 73, name: t.structureDonutSeries[0], itemStyle: {color: '#009144'}},
+                            {value: 27, name: t.structureDonutSeries[1], itemStyle: {color: '#212529'}}
+                        ]
+                    }]
+                });
+            }
+            
+            // Forecast Chart (Still used)
+            if (document.getElementById('forecastChart')) {
+                forecastChart = echarts.init(document.getElementById('forecastChart'));
+                forecastChart.setOption({
+                    title: { text: t.forecastTitle, textStyle: { color: '#212529', fontSize: 18 } },
+                    tooltip: { trigger: 'axis' },
+                    legend: { data: t.forecastLegend, bottom: 0 },
+                    xAxis: { type: 'category', data: ['2025 Q4', '2026 Q1', '2026 Q2', '2026 Q3', '2026 Q4', '2027'] },
+                    yAxis: [{
+                        type: 'value',
+                        name: t.forecastYAxis1,
+                        position: 'left',
+                        axisLine: { lineStyle: { color: '#009144' } }
+                    }, {
+                        type: 'value',
+                        name: t.forecastYAxis2,
+                        position: 'right',
+                        axisLine: { lineStyle: { color: '#FFB800' } }
+                    }],
+                    series: [{
+                        name: t.forecastLegend[0],
+                        type: 'line',
+                        smooth: true,
+                        data: [7, 6.5, 6, 5.5, 5, 5],
+                        lineStyle: { width: 3, color: '#009144' },
+                        areaStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0, color: 'rgba(0, 145, 68, 0.2)'
+                            }, {
+                                offset: 1, color: 'rgba(0, 145, 68, 0.02)'
+                            }])
+                        }
+                    }, {
+                        name: t.forecastLegend[1],
+                        type: 'bar',
+                        yAxisIndex: 1,
+                        data: [2.5, 3, 3.2, 3.5, 3.8, 12],
+                        itemStyle: { color: '#FFB800', borderRadius: [4, 4, 0, 0] }
+                    }]
+                });
+            }
+            
+            // Responsive charts
+            window.addEventListener('resize', function() {
+                 // ADDED: Check if chart instance exists before resizing
+                if (transactionChart) transactionChart.resize();
+                if (luxuryChart) luxuryChart.resize();
+                if (developerChart) developerChart.resize();
+                if (propertySegmentsChart) propertySegmentsChart.resize();
+                if (marketStructureChart) marketStructureChart.resize();
+                if (forecastChart) forecastChart.resize();
+            });
+        }
+    </script>
+</body>
+</html>
+
