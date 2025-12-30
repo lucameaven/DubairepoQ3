@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dubai Real Estate 2025 年度報告</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Bebas+Neue&family=Noto+Serif+TC:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C6A969;
+            --gold-light: #E8D5A3;
+            --dark: #0D0D0D;
+            --dark-blue: #0A1628;
+            --accent: #FF6B35;
+            --teal: #2DD4BF;
+            --white: #FAFAFA;
+            --gray: #6B7280;
+            --green: #10B981;
+            --red: #EF4444;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans TC', 'Noto Sans SC', 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+        
+        body.lang-en { font-family: 'Inter', sans-serif; }
+        body.lang-zh-CN { font-family: 'Noto Sans SC', sans-serif; }
+        body.lang-zh-TW { font-family: 'Noto Sans TC', sans-serif; }
+        
+        .page {
+            min-height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 5px;
+            background: rgba(0,0,0,0.7);
+            padding: 8px 12px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(198, 169, 105, 0.3);
+        }
+        
+        .lang-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 0.8rem;
+            border-radius: 15px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .lang-btn:hover { color: var(--white); }
+        .lang-btn.active {
+            background: var(--gold);
+            color: var(--dark);
+        }
+        
+        /* Page backgrounds */
+        .page-intro { background: linear-gradient(135deg, var(--dark) 0%, var(--dark-blue) 100%); }
+        .page-golden { background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+        .page-stats { background: linear-gradient(135deg, #0D1117 0%, #161B22 100%); }
+        .page-areas { background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%); }
+        .page-developers { background: linear-gradient(135deg, #0f0f23 0%, #1a1a40 100%); }
+        .page-investors { background: linear-gradient(180deg, #0d0d0d 0%, #1f1f1f 100%); }
+        .page-prime { background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%); }
+        .page-branded { background: linear-gradient(180deg, #2c1810 0%, #1a0f0a 100%); }
+        .page-outlook { background: linear-gradient(135deg, var(--dark-blue) 0%, #0a0a1a 100%); }
+        .page-quiz { background: linear-gradient(180deg, #1a0a2e 0%, #0f0a28 100%); }
+        .page-meaven { background: linear-gradient(135deg, #0a1a28 0%, #0d0d1a 100%); }
+        
+        .bg-pattern {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(198, 169, 105, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(198, 169, 105, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        /* Typography */
+        .headline {
+            font-family: 'Noto Serif TC', 'Noto Serif SC', 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.4;
+            max-width: 850px;
+            text-align: center;
+        }
+        
+        body.lang-en .headline { font-family: 'Playfair Display', serif; }
+        
+        .headline-mega {
+            font-family: 'Noto Serif TC', 'Noto Serif SC', 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.8rem);
+            font-weight: 700;
+            line-height: 1.3;
+            max-width: 900px;
+        }
+        
+        .subhead {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 300;
+            line-height: 1.8;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        
+        .title-mega {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 15vw, 11rem);
+            letter-spacing: 0.05em;
+            line-height: 0.9;
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .accent-text { color: var(--gold); }
+        
+        .small-caps {
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+        
+        .stat-mega {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 18vw, 12rem);
+            line-height: 1;
+            background: linear-gradient(180deg, var(--white) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .source-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(198, 169, 105, 0.1);
+            border: 1px solid rgba(198, 169, 105, 0.2);
+            border-radius: 20px;
+            font-size: 0.6rem;
+            color: var(--gold-light);
+            margin-top: 10px;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            width: 100%;
+            margin-top: 35px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 22px 15px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 14px;
+            border: 1px solid rgba(198, 169, 105, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(198, 169, 105, 0.25);
+        }
+        
+        .stat-card .number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+        }
+        
+        .stat-card .label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+        
+        .stat-card .convert {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            margin-top: 4px;
+        }
+        
+        /* Rankings */
+        .ranking-list { max-width: 700px; width: 100%; }
+        
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            animation: slideIn 0.6s ease forwards;
+            opacity: 0;
+        }
+        
+        .ranking-item:nth-child(1) { animation-delay: 0.1s; }
+        .ranking-item:nth-child(2) { animation-delay: 0.2s; }
+        .ranking-item:nth-child(3) { animation-delay: 0.3s; }
+        .ranking-item:nth-child(4) { animation-delay: 0.4s; }
+        .ranking-item:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .ranking-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            width: 45px;
+            color: var(--gold);
+        }
+        
+        .ranking-content { flex: 1; margin-left: 12px; }
+        .ranking-name { font-size: 1rem; font-weight: 500; }
+        .ranking-stats { font-size: 0.75rem; color: var(--gray); margin-top: 3px; }
+        
+        .ranking-bar {
+            height: 3px;
+            background: rgba(198, 169, 105, 0.15);
+            border-radius: 2px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+        
+        .ranking-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            border-radius: 2px;
+            transition: width 1s ease;
+        }
+        
+        /* Nationality Chart */
+        .nationality-chart {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 800px;
+        }
+        
+        .nationality-item { text-align: center; width: 110px; }
+        
+        .nationality-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            border: 2px solid var(--gold);
+            background: rgba(198, 169, 105, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .nationality-item:hover .nationality-circle {
+            transform: scale(1.1);
+            background: rgba(198, 169, 105, 0.15);
+        }
+        
+        .nationality-item:nth-child(1) .nationality-circle { width: 100px; height: 100px; font-size: 1.8rem; }
+        .nationality-item:nth-child(2) .nationality-circle { width: 90px; height: 90px; font-size: 1.6rem; }
+        
+        .nationality-name { font-size: 0.85rem; color: var(--white); }
+        .nationality-value { font-size: 0.7rem; color: var(--gray); margin-top: 3px; }
+        
+        /* Navigation */
+        .nav-dots {
+            position: fixed;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-dot:hover, .nav-dot.active {
+            background: var(--gold);
+            transform: scale(1.4);
+        }
+        
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-indicator span {
+            font-size: 0.7rem;
+            color: var(--gray);
+            margin-bottom: 6px;
+            letter-spacing: 0.1em;
+        }
+        
+        .scroll-arrow {
+            width: 16px;
+            height: 16px;
+            border-right: 2px solid var(--gold);
+            border-bottom: 2px solid var(--gold);
+            transform: rotate(45deg);
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-8px); }
+            60% { transform: translateX(-50%) translateY(-4px); }
+        }
+        
+        .content-center { text-align: center; max-width: 900px; padding: 0 20px; }
+        
+        @media (max-width: 768px) {
+            .nav-dots { display: none; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .nationality-chart { gap: 12px; }
+            .nationality-item { width: 85px; }
+            .lang-switcher { top: 10px; right: 10px; padding: 6px 10px; }
+        }
+        
+        /* Highlights */
+        .highlight-box {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, rgba(198, 169, 105, 0.12), rgba(198, 169, 105, 0.03));
+            border-left: 3px solid var(--gold);
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .growth {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            background: rgba(45, 212, 191, 0.12);
+            border-radius: 20px;
+            color: var(--teal);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .growth.negative {
+            background: rgba(239, 68, 68, 0.12);
+            color: var(--red);
+        }
+        
+        /* Comparison */
+        .comparison {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .comparison-item { text-align: center; }
+        .comparison-year { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; color: var(--gray); margin-bottom: 6px; }
+        .comparison-value { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--white); }
+        .comparison-arrow { font-size: 1.3rem; color: var(--teal); }
+        
+        .quote-ogilvy {
+            font-family: 'Noto Serif TC', 'Noto Serif SC', 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 500px;
+            line-height: 1.7;
+            font-style: italic;
+            margin-top: 25px;
+        }
+        
+        body.lang-en .quote-ogilvy { font-family: 'Playfair Display', serif; }
+        
+        .deco-line { width: 50px; height: 2px; background: var(--gold); margin: 18px auto; }
+        
+        .year-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(198, 169, 105, 0.08);
+            border: 1px solid rgba(198, 169, 105, 0.3);
+            border-radius: 25px;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+        
+        /* Charts */
+        .chart-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(198, 169, 105, 0.1);
+        }
+        
+        .bar-chart {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 180px;
+            padding: 20px 10px;
+        }
+        
+        .bar-item { text-align: center; flex: 1; max-width: 80px; }
+        
+        .bar {
+            width: 40px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, var(--gold), var(--gold-light));
+            border-radius: 4px 4px 0 0;
+            transition: height 1s ease;
+            position: relative;
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+            white-space: nowrap;
+        }
+        
+        .bar-label {
+            font-size: 0.7rem;
+            color: var(--gray);
+            margin-top: 8px;
+        }
+        
+        /* Quiz Styles */
+        .quiz-container {
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+        }
+        
+        .quiz-progress {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .quiz-progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+        
+        .quiz-progress-dot.active { background: var(--gold); transform: scale(1.2); }
+        .quiz-progress-dot.completed { background: var(--teal); }
+        
+        .quiz-question {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+        
+        .quiz-option {
+            padding: 18px 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(198, 169, 105, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+        
+        .quiz-option:hover {
+            background: rgba(198, 169, 105, 0.1);
+            border-color: var(--gold);
+            transform: translateX(5px);
+        }
+        
+        .quiz-option.selected {
+            background: rgba(198, 169, 105, 0.2);
+            border-color: var(--gold);
+        }
+        
+        /* Result Card */
+        .result-card {
+            background: linear-gradient(135deg, rgba(198, 169, 105, 0.15), rgba(198, 169, 105, 0.05));
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .result-card-inner {
+            background: var(--dark);
+            border-radius: 16px;
+            padding: 30px;
+        }
+        
+        .result-type {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .result-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .result-traits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .result-trait {
+            padding: 5px 12px;
+            background: rgba(198, 169, 105, 0.1);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: var(--gold-light);
+        }
+        
+        .save-btn {
+            padding: 12px 30px;
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .save-btn:hover { transform: scale(1.05); background: var(--gold-light); }
+        
+        .restart-btn {
+            padding: 10px 25px;
+            background: transparent;
+            color: var(--gray);
+            border: 1px solid var(--gray);
+            border-radius: 25px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 10px;
+        }
+        
+        .restart-btn:hover { color: var(--white); border-color: var(--white); }
+        
+        /* Meaven Section */
+        .meaven-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        
+        .meaven-content {
+            max-width: 800px;
+            text-align: left;
+        }
+        
+        .meaven-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            border-left: 3px solid var(--gold);
+        }
+        
+        .meaven-feature-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .meaven-feature-text h4 {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .meaven-feature-text p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        .meaven-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 25px 0;
+        }
+        
+        .meaven-badge {
+            padding: 8px 16px;
+            background: rgba(198, 169, 105, 0.1);
+            border: 1px solid rgba(198, 169, 105, 0.3);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--gold-light);
+        }
+        
+        .meaven-cta {
+            display: inline-block;
+            padding: 15px 40px;
+            background: var(--gold);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .meaven-cta:hover { transform: scale(1.05); background: var(--gold-light); }
+        
+        /* Hidden classes for language */
+        [data-lang] { display: none; }
+        [data-lang="zh-TW"] { display: block; }
+        body.lang-en [data-lang] { display: none; }
+        body.lang-en [data-lang="en"] { display: block; }
+        body.lang-zh-CN [data-lang] { display: none; }
+        body.lang-zh-CN [data-lang="zh-CN"] { display: block; }
+        body.lang-zh-TW [data-lang] { display: none; }
+        body.lang-zh-TW [data-lang="zh-TW"] { display: block; }
+        
+        /* For inline spans */
+        span[data-lang] { display: none; }
+        span[data-lang="zh-TW"] { display: inline; }
+        body.lang-en span[data-lang] { display: none; }
+        body.lang-en span[data-lang="en"] { display: inline; }
+        body.lang-zh-CN span[data-lang] { display: none; }
+        body.lang-zh-CN span[data-lang="zh-CN"] { display: inline; }
+        body.lang-zh-TW span[data-lang] { display: none; }
+        body.lang-zh-TW span[data-lang="zh-TW"] { display: inline; }
+        
+        .skyline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(180deg, transparent 0%, rgba(198, 169, 105, 0.03) 100%);
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0,200 L0,180 L50,180 L50,160 L70,160 L70,140 L90,140 L90,100 L110,100 L110,80 L130,80 L130,60 L150,60 L150,40 L180,40 L180,30 L200,30 L200,40 L220,40 L220,80 L250,80 L250,100 L280,100 L280,70 L300,70 L300,50 L330,50 L330,30 L360,30 L360,10 L380,10 L380,30 L400,30 L400,60 L430,60 L430,90 L460,90 L460,110 L500,110 L500,80 L530,80 L530,50 L560,50 L560,30 L590,30 L590,0 L610,0 L610,30 L640,30 L640,60 L670,60 L670,100 L700,100 L700,120 L740,120 L740,90 L770,90 L770,60 L800,60 L800,40 L830,40 L830,20 L860,20 L860,40 L890,40 L890,70 L920,70 L920,100 L960,100 L960,130 L1000,130 L1000,110 L1030,110 L1030,80 L1060,80 L1060,50 L1090,50 L1090,30 L1120,30 L1120,60 L1150,60 L1150,100 L1180,100 L1180,150 L1200,150 L1200,200 Z' fill='white'/%3E%3C/svg%3E");
+            mask-size: cover;
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0,200 L0,180 L50,180 L50,160 L70,160 L70,140 L90,140 L90,100 L110,100 L110,80 L130,80 L130,60 L150,60 L150,40 L180,40 L180,30 L200,30 L200,40 L220,40 L220,80 L250,80 L250,100 L280,100 L280,70 L300,70 L300,50 L330,50 L330,30 L360,30 L360,10 L380,10 L380,30 L400,30 L400,60 L430,60 L430,90 L460,90 L460,110 L500,110 L500,80 L530,80 L530,50 L560,50 L560,30 L590,30 L590,0 L610,0 L610,30 L640,30 L640,60 L670,60 L670,100 L700,100 L700,120 L740,120 L740,90 L770,90 L770,60 L800,60 L800,40 L830,40 L830,20 L860,20 L860,40 L890,40 L890,70 L920,70 L920,100 L960,100 L960,130 L1000,130 L1000,110 L1030,110 L1030,80 L1060,80 L1060,50 L1090,50 L1090,30 L1120,30 L1120,60 L1150,60 L1150,100 L1180,100 L1180,150 L1200,150 L1200,200 Z' fill='white'/%3E%3C/svg%3E");
+            -webkit-mask-size: cover;
+        }
+        
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body class="lang-zh-TW">
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <button class="lang-btn active" data-target="zh-TW">繁</button>
+        <button class="lang-btn" data-target="zh-CN">简</button>
+        <button class="lang-btn" data-target="en">EN</button>
+    </div>
+
+    <!-- Navigation Dots -->
+    <nav class="nav-dots">
+        <div class="nav-dot active" data-page="0"></div>
+        <div class="nav-dot" data-page="1"></div>
+        <div class="nav-dot" data-page="2"></div>
+        <div class="nav-dot" data-page="3"></div>
+        <div class="nav-dot" data-page="4"></div>
+        <div class="nav-dot" data-page="5"></div>
+        <div class="nav-dot" data-page="6"></div>
+        <div class="nav-dot" data-page="7"></div>
+        <div class="nav-dot" data-page="8"></div>
+        <div class="nav-dot" data-page="9"></div>
+        <div class="nav-dot" data-page="10"></div>
+        <div class="nav-dot" data-page="11"></div>
+        <div class="nav-dot" data-page="12"></div>
+    </nav>
+
+    <!-- Page 1: Opening -->
+    <section class="page page-intro" id="page-0">
+        <div class="bg-pattern"></div>
+        <div class="skyline"></div>
+        <div class="content-center">
+            <p class="small-caps">YOUR 2025 REAL ESTATE WRAPPED</p>
+            <div class="title-mega">DUBAI</div>
+            
+            <div data-lang="zh-TW">
+                <div class="headline" style="margin-top: 20px;">
+                    當全世界都在問<span class="accent-text">「下一個機會在哪？」</span><br>
+                    有21萬人已經找到答案。
+                </div>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="headline" style="margin-top: 20px;">
+                    当全世界都在问<span class="accent-text">"下一个机会在哪？"</span><br>
+                    有21万人已经找到答案。
+                </div>
+            </div>
+            <div data-lang="en">
+                <div class="headline" style="margin-top: 20px;">
+                    While the world asks <span class="accent-text">"Where's the next opportunity?"</span><br>
+                    210,000 people already found the answer.
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>SCROLL</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Page 2: Total Overview -->
+    <section class="page page-golden" id="page-1">
+        <div class="bg-pattern"></div>
+        <div class="content-center">
+            <p class="small-caps">2025 ANNUAL OVERVIEW</p>
+            <div class="stat-mega">214,644</div>
+            
+            <div data-lang="zh-TW">
+                <div class="headline" style="margin-top: 15px;">
+                    這不只是一個數字。<br>
+                    這是 <span class="accent-text">214,644 個相信杜拜的決定。</span>
+                </div>
+                <p class="subhead">每一筆交易背後，都是一個關於夢想、關於未來、關於「為什麼不？」的故事。</p>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="headline" style="margin-top: 15px;">
+                    这不只是一个数字。<br>
+                    这是 <span class="accent-text">214,644 个相信迪拜的决定。</span>
+                </div>
+                <p class="subhead">每一笔交易背后，都是一个关于梦想、关于未来、关于"为什么不？"的故事。</p>
+            </div>
+            <div data-lang="en">
+                <div class="headline" style="margin-top: 15px;">
+                    This isn't just a number.<br>
+                    It's <span class="accent-text">214,644 decisions to believe in Dubai.</span>
+                </div>
+                <p class="subhead">Behind every transaction is a story about dreams, about the future, about "why not?"</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">6,818</div>
+                    <div data-lang="zh-TW">
+                        <div class="label">總交易價值（億迪拉姆）</div>
+                        <div class="convert">≈ 新台幣 5.8 兆</div>
+                    </div>
+                    <div data-lang="zh-CN">
+                        <div class="label">总交易价值（亿迪拉姆）</div>
+                        <div class="convert">≈ 人民币 1.3 万亿</div>
+                    </div>
+                    <div data-lang="en">
+                        <div class="label">Total Value (AED Billion)</div>
+                        <div class="convert">≈ USD 185.6 Billion</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">175,525</div>
+                    <div data-lang="zh-TW"><div class="label">住宅單位<br>每2分鐘成交一間</div></div>
+                    <div data-lang="zh-CN"><div class="label">住宅单位<br>每2分钟成交一套</div></div>
+                    <div data-lang="en"><div class="label">Residential Units<br>1 sale every 2 minutes</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">13,907</div>
+                    <div data-lang="zh-TW"><div class="label">建築物交易<br>整棟買下的野心</div></div>
+                    <div data-lang="zh-CN"><div class="label">建筑物交易<br>整栋买下的野心</div></div>
+                    <div data-lang="en"><div class="label">Building Transactions<br>Buying whole buildings</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">25,215</div>
+                    <div data-lang="zh-TW"><div class="label">土地交易<br>夢想的起點</div></div>
+                    <div data-lang="zh-CN"><div class="label">土地交易<br>梦想的起点</div></div>
+                    <div data-lang="en"><div class="label">Land Transactions<br>Where dreams begin</div></div>
+                </div>
+            </div>
+            
+            <div class="source-tag">Dubai Land Department 官方數據</div>
+        </div>
+    </section>
+
+    <!-- Page 3: Price Growth -->
+    <section class="page page-stats" id="page-2">
+        <div class="bg-pattern"></div>
+        <div class="content-center">
+            <p class="small-caps">PRICE EVOLUTION</p>
+            
+            <div data-lang="zh-TW">
+                <div class="headline-mega">
+                    2014年每平方呎 <span class="accent-text">1,200</span> 迪拉姆<br>
+                    2025年？<span class="accent-text">1,755</span> 迪拉姆。
+                </div>
+                <p class="subhead" style="margin-top: 25px;">
+                    十年漲幅 <span class="accent-text">46%</span>，但真正的故事是——<br>
+                    僅2025年就上漲了 <span class="accent-text">16.1%</span>
+                </p>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="headline-mega">
+                    2014年每平方英尺 <span class="accent-text">1,200</span> 迪拉姆<br>
+                    2025年？<span class="accent-text">1,755</span> 迪拉姆。
+                </div>
+                <p class="subhead" style="margin-top: 25px;">
+                    十年涨幅 <span class="accent-text">46%</span>，但真正的故事是——<br>
+                    仅2025年就上涨了 <span class="accent-text">16.1%</span>
+                </p>
+            </div>
+            <div data-lang="en">
+                <div class="headline-mega">
+                    2014: <span class="accent-text">AED 1,200</span> per sqft<br>
+                    2025: <span class="accent-text">AED 1,755</span> per sqft.
+                </div>
+                <p class="subhead" style="margin-top: 25px;">
+                    A decade of <span class="accent-text">46%</span> growth, but here's the real story—<br>
+                    2025 alone saw <span class="accent-text">+16.1%</span>
+                </p>
+            </div>
+            
+            <div class="chart-container">
+                <div class="bar-chart">
+                    <div class="bar-item">
+                        <div class="bar" style="height: 80px;"><span class="bar-value">1,200</span></div>
+                        <div class="bar-label">2014</div>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar" style="height: 75px;"><span class="bar-value">1,100</span></div>
+                        <div class="bar-label">2019</div>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar" style="height: 95px;"><span class="bar-value">1,350</span></div>
+                        <div class="bar-label">2022</div>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar" style="height: 115px;"><span class="bar-value">1,512</span></div>
+                        <div class="bar-label">2024</div>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar" style="height: 140px; background: linear-gradient(180deg, var(--teal), #0d9488);"><span class="bar-value" style="color: var(--teal);">1,755</span></div>
+                        <div class="bar-label" style="color: var(--teal);">2025</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div data-lang="zh-TW">
+                <div class="highlight-box">
+                    <span style="font-size: 0.9rem; color: var(--gray);">換算參考：1,755 迪拉姆/平方呎 ≈</span><br>
+                    <span style="color: var(--gold); font-size: 1.1rem;">新台幣 53萬/坪</span>
+                </div>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="highlight-box">
+                    <span style="font-size: 0.9rem; color: var(--gray);">换算参考：1,755 迪拉姆/平方英尺 ≈</span><br>
+                    <span style="color: var(--gold); font-size: 1.1rem;">人民币 3.6万/平方米</span>
+                </div>
+            </div>
+            <div data-lang="en">
+                <div class="highlight-box">
+                    <span style="font-size: 0.9rem; color: var(--gray);">Reference: AED 1,755/sqft ≈</span><br>
+                    <span style="color: var(--gold); font-size: 1.1rem;">USD 478/sqft or USD 5,145/sqm</span>
+                </div>
+            </div>
+            
+            <div class="source-tag">DXB Properties / Market Reports 2025</div>
+        </div>
+    </section>
+
+    <!-- Page 4: Off-Plan vs Ready -->
+    <section class="page page-areas" id="page-3">
+        <div class="bg-pattern"></div>
+        <div class="content-center">
+            <p class="small-caps">MARKET COMPOSITION</p>
+            
+            <div data-lang="zh-TW">
+                <div class="headline-mega">
+                    <span class="accent-text">72%</span> 的人選擇買「還沒蓋好的房子」。<br>
+                    他們瘋了？不，他們懂行。
+                </div>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="headline-mega">
+                    <span class="accent-text">72%</span> 的人选择买"还没盖好的房子"。<br>
+                    他们疯了？不，他们懂行。
+                </div>
+            </div>
+            <div data-lang="en">
+                <div class="headline-mega">
+                    <span class="accent-text">72%</span> chose to buy "unbuilt homes."<br>
+                    Crazy? No. They know the game.
+                </div>
+            </div>
+            
+            <div class="stats-grid" style="margin-top: 40px; max-width: 700px;">
+                <div class="stat-card" style="border-color: rgba(45, 212, 191, 0.3);">
+                    <div class="number" style="color: var(--teal);">72%</div>
+                    <div data-lang="zh-TW"><div class="label">預售屋交易佔比</div><div class="convert">更低入場價、更高增值潛力</div></div>
+                    <div data-lang="zh-CN"><div class="label">期房交易占比</div><div class="convert">更低入场价、更高增值潜力</div></div>
+                    <div data-lang="en"><div class="label">Off-Plan Transactions</div><div class="convert">Lower entry, higher potential</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">28%</div>
+                    <div data-lang="zh-TW"><div class="label">成屋交易佔比</div><div class="convert">即買即住、穩定收租</div></div>
+                    <div data-lang="zh-CN"><div class="label">现房交易占比</div><div class="convert">即买即住、稳定收租</div></div>
+                    <div data-lang="en"><div class="label">Ready Property</div><div class="convert">Move-in ready, instant rental</div></div>
+                </div>
+            </div>
+            
+            <div data-lang="zh-TW">
+                <p class="quote-ogilvy">
+                    「預售屋不是賭博，是用時間換取價差的聰明策略。<br>
+                    2025年新推出 <span class="accent-text">167個項目、41,933個單位</span>，<br>
+                    聰明錢早就進場了。」
+                </p>
+            </div>
+            <div data-lang="zh-CN">
+                <p class="quote-ogilvy">
+                    「期房不是赌博，是用时间换取价差的聪明策略。<br>
+                    2025年新推出 <span class="accent-text">167个项目、41,933个单位</span>，<br>
+                    聪明钱早就进场了。」
+                </p>
+            </div>
+            <div data-lang="en">
+                <p class="quote-ogilvy">
+                    "Off-plan isn't gambling—it's trading time for profit.<br>
+                    2025 launched <span class="accent-text">167 projects, 41,933 units</span>.<br>
+                    Smart money moved early."
+                </p>
+            </div>
+            
+            <div class="source-tag">Dubai Land Department Dashboard D002</div>
+        </div>
+    </section>
+
+    <!-- Page 5: Rental Yields -->
+    <section class="page page-developers" id="page-4">
+        <div class="bg-pattern"></div>
+        <div class="content-center">
+            <p class="small-caps">RENTAL YIELDS</p>
+            
+            <div data-lang="zh-TW">
+                <div class="headline-mega">
+                    倫敦 <span style="color: var(--gray);">2.4%</span>，紐約 <span style="color: var(--gray);">4.2%</span>，<br>
+                    杜拜？<span class="accent-text">6.8% - 9%</span>
+                </div>
+                <p class="subhead">當全球主要城市租金收益率持續低迷，杜拜用數字說話。</p>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="headline-mega">
+                    伦敦 <span style="color: var(--gray);">2.4%</span>，纽约 <span style="color: var(--gray);">4.2%</span>，<br>
+                    迪拜？<span class="accent-text">6.8% - 9%</span>
+                </div>
+                <p class="subhead">当全球主要城市租金收益率持续低迷，迪拜用数字说话。</p>
+            </div>
+            <div data-lang="en">
+                <div class="headline-mega">
+                    London <span style="color: var(--gray);">2.4%</span>, NYC <span style="color: var(--gray);">4.2%</span>,<br>
+                    Dubai? <span class="accent-text">6.8% - 9%</span>
+                </div>
+                <p class="subhead">While global cities offer declining yields, Dubai speaks with numbers.</p>
+            </div>
+            
+            <div class="stats-grid" style="margin-top: 40px;">
+                <div class="stat-card">
+                    <div class="number" style="color: var(--teal);">7-9%</div>
+                    <div data-lang="zh-TW"><div class="label">JVC 租金回報率</div><div class="convert">高收益率冠軍區</div></div>
+                    <div data-lang="zh-CN"><div class="label">JVC 租金回报率</div><div class="convert">高收益率冠军区</div></div>
+                    <div data-lang="en"><div class="label">JVC Rental Yield</div><div class="convert">Top yield champion</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" style="color: var(--teal);">6-7%</div>
+                    <div data-lang="zh-TW"><div class="label">Dubai Marina</div><div class="convert">經典區域穩定收益</div></div>
+                    <div data-lang="zh-CN"><div class="label">Dubai Marina</div><div class="convert">经典区域稳定收益</div></div>
+                    <div data-lang="en"><div class="label">Dubai Marina</div><div class="convert">Classic stable returns</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" style="color: var(--teal);">5-6%</div>
+                    <div data-lang="zh-TW"><div class="label">Downtown Dubai</div><div class="convert">核心地段保值首選</div></div>
+                    <div data-lang="zh-CN"><div class="label">Downtown Dubai</div><div class="convert">核心地段保值首选</div></div>
+                    <div data-lang="en"><div class="label">Downtown Dubai</div><div class="convert">Prime location premium</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" style="color: var(--teal);">8-10%</div>
+                    <div data-lang="zh-TW"><div class="label">Dubai South</div><div class="convert">潛力區域爆發中</div></div>
+                    <div data-lang="zh-CN"><div class="label">Dubai South</div><div class="convert">潜力区域爆发中</div></div>
+                    <div data-lang="en"><div class="label">Dubai South</div><div class="convert">Emerging hotspot</div></div>
+                </div>
+            </div>
+            
+            <div class="source-tag">CBRE Research / Savills Report 2025</div>
+        </div>
+    </section>
+
+    <!-- Page 6: Top Areas -->
+    <section class="page page-investors" id="page-5">
+        <div class="bg-pattern"></div>
+        <div class="content-center">
+            <p class="small-caps">TOP PERFORMING AREAS</p>
+            
+            <div data-lang="zh-TW">
+                <div class="headline-mega">
+                    <span class="accent-text">JVC</span>：今年最常被說出口的三個字母。
+                </div>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="headline-mega">
+                    <span class="accent-text">JVC</span>：今年最常被说出口的三个字母。
+                </div>
+            </div>
+            <div data-lang="en">
+                <div class="headline-mega">
+                    <span class="accent-text">JVC</span>: The three letters everyone's talking about.
+                </div>
+            </div>
+            
+            <div class="ranking-list" style="margin-top: 35px;">
+                <div class="ranking-item">
+                    <div class="ranking-number">#1</div>
+                    <div class="ranking-content">
+                        <div class="ranking-name">Jumeirah Village Circle (JVC)</div>
+                        <div data-lang="zh-TW"><div class="ranking-stats">3,605 筆 · 45.6億迪拉姆 · 回報率 7-9%</div></div>
+                        <div data-lang="zh-CN"><div class="ranking-stats">3,605 笔 · 45.6亿迪拉姆 · 回报率 7-9%</div></div>
+                        <div data-lang="en"><div class="ranking-stats">3,605 deals · AED 4.56B · 7-9% yield</div></div>
+                        <div class="ranking-bar"><div class="ranking-bar-fill" style="width: 100%;"></div></div>
+                    </div>
+                </div>
+                <div class="ranking-item">
+                    <div class="ranking-number">#2</div>
+                    <div class="ranking-content">
+                        <div class="ranking-name">Wadi Al Safa 5</div>
+                        <div data-lang="zh-TW"><div class="ranking-stats">3,596 筆 · 76.4億迪拉姆 · 新興黑馬</div></div>
+                        <div data-lang="zh-CN"><div class="ranking-stats">3,596 笔 · 76.4亿迪拉姆 · 新兴黑马</div></div>
+                        <div data-lang="en"><div class="ranking-stats">3,596 deals · AED 7.64B · Emerging star</div></div>
+                        <div class="ranking-bar"><div class="ranking-bar-fill" style="width: 95%;"></div></div>
+                    </div>
+                </div>
+                <div class="ranking-item">
+                    <div class="ranking-number">#3</div>
+                    <div class="ranking-content">
+                        <div class="ranking-name">Business Bay</div>
+                        <div data-lang="zh-TW"><div class="ranking-stats">2,782 筆 · 72.7億迪拉姆 · 商住兩相宜</div></div>
+                        <div data-lang="zh-CN"><div class="ranking-stats">2,782 笔 · 72.7亿迪拉姆 · 商住两相宜</div></div>
+                        <div data-lang="en"><div class="ranking-stats">2,782 deals · AED 7.27B · Live-work hub</div></div>
+                        <div class="ranking-bar"><div class="ranking-bar-fill" style="width: 77%;"></div></div>
+                    </div>
+                </div>
+                <div class="ranking-item">
+                    <div class="ranking-number">#4</div>
+                    <div class="ranking-content">
+                        <div class="ranking-name">Dubai South</div>
+                        <div data-lang="zh-TW"><div class="ranking-stats">2,676 筆 · 87.5億迪拉姆 · 機場旁的未來城</div></div>
+                        <div data-lang="zh-CN"><div class="ranking-stats">2,676 笔 · 87.5亿迪拉姆 · 机场旁的未来城</div></div>
+                        <div data-lang="en"><div class="ranking-stats">2,676 deals · AED 8.75B · Airport city of future</div></div>
+                        <div class="ranking-bar"><div class="ranking-bar-fill" style="width: 74%;"></div></div>
+                    </div>
+                </div>
+                <div class="ranking-item">
+                    <div class="ranking-number">#5</div>
+                    <div class="ranking-content">
+                        <div class="ranking-name">Dubai Marina</div>
+                        <div data-lang="zh-TW"><div class="ranking-stats">2,583 筆 · 92.8億迪拉姆 · 經典永不過時</div></div>
+                        <div data-lang="zh-CN"><div class="ranking-stats">2,583 笔 · 92.8亿迪拉姆 · 经典永不过时</div></div>
+                        <div data-lang="en"><div class="ranking-stats">2,583 deals · AED 9.28B · Timeless classic</div></div>
+                        <div class="ranking-bar"><div class="ranking-bar-fill" style="width: 72%;"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="source-tag">DXB Properties Q1 2025 Report</div>
+        </div>
+    </section>
+
+    <!-- Page 7: Developers -->
+    <section class="page page-prime" id="page-6">
+        <div class="bg-pattern"></div>
+        <div class="content-center">
+            <p class="small-caps">TOP DEVELOPERS</p>
+            
+            <div data-lang="zh-TW">
+                <div class="headline-mega">
+                    <span class="accent-text">Emaar</span> 不是在蓋房子，<br>他們在蓋傳奇。
+                </div>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="headline-mega">
+                    <span class="accent-text">Emaar</span> 不是在盖房子，<br>他们在盖传奇。
+                </div>
+            </div>
+            <div data-lang="en">
+                <div class="headline-mega">
+                    <span class="accent-text">Emaar</span> isn't building homes.<br>They're building legends.
+                </div>
+            </div>
+            
+            <div class="ranking-list" style="margin-top: 35px;">
+                <div class="ranking-item">
+                    <div class="ranking-number">#1</div>
+                    <div class="ranking-content">
+                        <div class="ranking-name">Emaar Properties</div>
+                        <div data-lang="zh-TW"><div class="ranking-stats">517億迪拉姆 · 10,000+筆 · 王者依然是王者</div></div>
+                        <div data-lang="zh-CN"><div class="ranking-stats">517亿迪拉姆 · 10,000+笔 · 王者依然是王者</div></div>
+                        <div data-lang="en"><div class="ranking-stats">AED 51.7B · 10,000+ deals · The undisputed king</div></div>
+                        <div class="ranking-bar"><div class="ranking-bar-fill" style="width: 100%;"></div></div>
+                    </div>
+                </div>
+                <div class="ranking-item">
+                    <div class="ranking-number">#2</div>
+                    <div class="ranking-content">
+                        <div class="ranking-name">DAMAC Properties</div>
+                        <div data-lang="zh-TW"><div class="ranking-stats">240-270億迪拉姆 · 追趕者的野心</div></div>
+                        <div data-lang="zh-CN"><div class="ranking-stats">240-270亿迪拉姆 · 追赶者的野心</div></div>
+                        <div data-lang="en"><div class="ranking-stats">AED 24-27B · The ambitious challenger</div></div>
+                        <div class="ranking-bar"><div class="ranking-bar-fill" style="width: 52%;"></div></div>
+                    </div>
+                </div>
+                <div class="ranking-item">
+                    <div class="ranking-number">#3</div>
+                    <div class="ranking-content">
+                        <div class="ranking-name">Binghatti</div>
+                        <div data-lang="zh-TW"><div class="ranking-stats">150億迪拉姆 · 8,178單位 · 設計即態度</div></div>
+                        <div data-lang="zh-CN"><div class="ranking-stats">150亿迪拉姆 · 8,178单位 · 设计即态度</div></div>
+                        <div data-lang="en"><div class="ranking-stats">AED 15B · 8,178 units · Design as statement</div></div>
+                        <div class="ranking-bar"><div class="ranking-bar-fill" style="width: 29%;"></div></div>
+                    </div>
+                </div>
+                <div class="ranking-item">
+                    <div class="ranking-number">#4</div>
+                    <div class="ranking-content">
+                        <div class="ranking-name">Sobha Realty</div>
+                        <div data-lang="zh-TW"><div class="ranking-stats">130億迪拉姆 · 品質的代名詞</div></div>
+                        <div data-lang="zh-CN"><div class="ranking-stats">130亿迪拉姆 · 品质的代名词</div></div>
+                        <div data-lang="en"><div class="ranking-stats">AED 13B · Synonym for quality</div></div>
+                        <div class="ranking-bar"><div class="ranking-bar-fill" style="width: 25%;"></div></div>
+                    </div>
+                </div>
+                <div class="ranking-item">
+                    <div class="ranking-number">#5</div>
+                    <div class="ranking-content">
+                        <div class="ranking-name">Nakheel</div>
+                        <div data-lang="zh-TW"><div class="ranking-stats">130億迪拉姆 · Palm 的締造者</div></div>
+                        <div data-lang="zh-CN"><div class="ranking-stats">130亿迪拉姆 · Palm 的缔造者</div></div>
+                        <div data-lang="en"><div class="ranking-stats">AED 13B · Creator of The Palm</div></div>
+                        <div class="ranking-bar"><div class="ranking-bar-fill" style="width: 25%;"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="source-tag">Industry Reports Jan-Aug 2025</div>
+        </div>
+    </section>
+
+    <!-- Page 8: Investor Nationalities -->
+    <section class="page page-branded" id="page-7">
+        <div class="bg-pattern"></div>
+        <div class="content-center">
+            <p class="small-caps">INVESTOR NATIONALITIES</p>
+            
+            <div data-lang="zh-TW">
+                <div class="headline-mega">
+                    全世界的錢都在搬家，<br>新地址是：<span class="accent-text">杜拜。</span>
+                </div>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="headline-mega">
+                    全世界的钱都在搬家，<br>新地址是：<span class="accent-text">迪拜。</span>
+                </div>
+            </div>
+            <div data-lang="en">
+                <div class="headline-mega">
+                    Global wealth is moving.<br>New address: <span class="accent-text">Dubai.</span>
+                </div>
+            </div>
+            
+            <div class="nationality-chart" style="margin-top: 40px;">
+                <div class="nationality-item">
+                    <div class="nationality-circle">22%</div>
+                    <div class="nationality-name">🇮🇳</div>
+                    <div data-lang="zh-TW"><div class="nationality-value">印度 · ~300億迪拉姆</div></div>
+                    <div data-lang="zh-CN"><div class="nationality-value">印度 · ~300亿迪拉姆</div></div>
+                    <div data-lang="en"><div class="nationality-value">India · ~AED 30B</div></div>
+                </div>
+                <div class="nationality-item">
+                    <div class="nationality-circle">17%</div>
+                    <div class="nationality-name">🇬🇧</div>
+                    <div data-lang="zh-TW"><div class="nationality-value">英國 · ~147億迪拉姆</div></div>
+                    <div data-lang="zh-CN"><div class="nationality-value">英国 · ~147亿迪拉姆</div></div>
+                    <div data-lang="en"><div class="nationality-value">UK · ~AED 14.7B</div></div>
+                </div>
+                <div class="nationality-item">
+                    <div class="nationality-circle">14%</div>
+                    <div class="nationality-name">🇨🇳</div>
+                    <div data-lang="zh-TW"><div class="nationality-value">中國 · 快速增長</div></div>
+                    <div data-lang="zh-CN"><div class="nationality-value">中国 · 快速增长</div></div>
+                    <div data-lang="en"><div class="nationality-value">China · Fast growing</div></div>
+                </div>
+                <div class="nationality-item">
+                    <div class="nationality-circle">11%</div>
+                    <div class="nationality-name">🇸🇦</div>
+                    <div data-lang="zh-TW"><div class="nationality-value">沙烏地 · GCC領先</div></div>
+                    <div data-lang="zh-CN"><div class="nationality-value">沙特 · GCC领先</div></div>
+                    <div data-lang="en"><div class="nationality-value">Saudi · GCC leader</div></div>
+                </div>
+                <div class="nationality-item">
+                    <div class="nationality-circle">9%</div>
+                    <div class="nationality-name">🇷🇺</div>
+                    <div data-lang="zh-TW"><div class="nationality-value">俄羅斯 · 穩定成長</div></div>
+                    <div data-lang="zh-CN"><div class="nationality-value">俄罗斯 · 稳定成长</div></div>
+                    <div data-lang="en"><div class="nationality-value">Russia · Steady growth</div></div>
+                </div>
+            </div>
+            
+            <div class="highlight-box" style="margin-top: 35px; text-align: center;">
+                <div style="font-size: 2.2rem; color: var(--gold); font-family: 'Bebas Neue', sans-serif;">110,000+</div>
+                <div data-lang="zh-TW"><div style="color: var(--white); font-size: 0.9rem;">2024年新進投資者（年增55%）</div></div>
+                <div data-lang="zh-CN"><div style="color: var(--white); font-size: 0.9rem;">2024年新进投资者（年增55%）</div></div>
+                <div data-lang="en"><div style="color: var(--white); font-size: 0.9rem;">New investors in 2024 (+55% YoY)</div></div>
+            </div>
+            
+            <div class="source-tag">Dubai Land Department / CBRE Research</div>
+        </div>
+    </section>
+
+    <!-- Page 9: Prime Market -->
+    <section class="page page-golden" id="page-8">
+        <div class="bg-pattern"></div>
+        <div class="content-center">
+            <p class="small-caps">PRIME MARKET (AED 10M+)</p>
+            
+            <div data-lang="zh-TW">
+                <div class="headline-mega">
+                    五年前，<span class="accent-text">469人</span>敢花千萬買房。<br>
+                    今年，<span class="accent-text">6,000人</span>覺得這很正常。
+                </div>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="headline-mega">
+                    五年前，<span class="accent-text">469人</span>敢花千万买房。<br>
+                    今年，<span class="accent-text">6,000人</span>觉得这很正常。
+                </div>
+            </div>
+            <div data-lang="en">
+                <div class="headline-mega">
+                    Five years ago, <span class="accent-text">469</span> dared spend AED 10M+.<br>
+                    This year? <span class="accent-text">6,000</span> call it normal.
+                </div>
+            </div>
+            
+            <div class="comparison" style="margin-top: 35px;">
+                <div class="comparison-item">
+                    <div class="comparison-year">2020</div>
+                    <div class="comparison-value">469</div>
+                </div>
+                <div class="comparison-arrow">→</div>
+                <div class="comparison-item">
+                    <div class="comparison-year">2024</div>
+                    <div class="comparison-value">4,789</div>
+                </div>
+                <div class="comparison-arrow">→</div>
+                <div class="comparison-item">
+                    <div class="comparison-year">2025</div>
+                    <div class="comparison-value" style="color: var(--teal);">~6,000</div>
+                    <div class="growth" style="margin-top: 6px; font-size: 0.7rem;">+24.4%</div>
+                </div>
+            </div>
+            
+            <div class="stats-grid" style="margin-top: 35px; max-width: 800px;">
+                <div class="stat-card">
+                    <div class="number">73%</div>
+                    <div data-lang="zh-TW"><div class="label">預售屋佔比<br>敢買未來的人</div></div>
+                    <div data-lang="zh-CN"><div class="label">期房占比<br>敢买未来的人</div></div>
+                    <div data-lang="en"><div class="label">Off-Plan Share<br>Betting on the future</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">70%</div>
+                    <div data-lang="zh-TW"><div class="label">別墅佔比<br>空間即奢侈</div></div>
+                    <div data-lang="zh-CN"><div class="label">别墅占比<br>空间即奢侈</div></div>
+                    <div data-lang="en"><div class="label">Villa Share<br>Space is luxury</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">5,400</div>
+                    <div data-lang="zh-TW"><div class="label">公寓均價/平方呎<br>≈新台幣16.4萬/坪</div></div>
+                    <div data-lang="zh-CN"><div class="label">公寓均价/平方英尺<br>≈人民币11万/平方米</div></div>
+                    <div data-lang="en"><div class="label">Apt Avg/sqft<br>≈USD 1,470/sqft</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">2,600</div>
+                    <div data-lang="zh-TW"><div class="label">別墅均價/平方呎<br>≈新台幣7.9萬/坪</div></div>
+                    <div data-lang="zh-CN"><div class="label">别墅均价/平方英尺<br>≈人民币5.3万/平方米</div></div>
+                    <div data-lang="en"><div class="label">Villa Avg/sqft<br>≈USD 708/sqft</div></div>
+                </div>
+            </div>
+            
+            <div class="source-tag">Savills Prime Residential December 2025</div>
+        </div>
+    </section>
+
+    <!-- Page 10: Branded Residences -->
+    <section class="page page-stats" id="page-9">
+        <div class="bg-pattern"></div>
+        <div class="content-center">
+            <p class="small-caps">BRANDED RESIDENCES</p>
+            
+            <div data-lang="zh-TW">
+                <div class="headline-mega">
+                    當你住進一個<span class="accent-text">名字</span>，<br>你買的不是房子，是身份。
+                </div>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="headline-mega">
+                    当你住进一个<span class="accent-text">名字</span>，<br>你买的不是房子，是身份。
+                </div>
+            </div>
+            <div data-lang="en">
+                <div class="headline-mega">
+                    When you live in a <span class="accent-text">name</span>,<br>you're not buying a home—you're buying an identity.
+                </div>
+            </div>
+            
+            <div class="stats-grid" style="margin-top: 35px;">
+                <div class="stat-card">
+                    <div class="number" style="color: var(--teal);">+26%</div>
+                    <div data-lang="zh-TW"><div class="label">2025年前9月<br>交易量增長</div></div>
+                    <div data-lang="zh-CN"><div class="label">2025年前9月<br>交易量增长</div></div>
+                    <div data-lang="en"><div class="label">Jan-Sep 2025<br>Volume Growth</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" style="color: var(--teal);">+51%</div>
+                    <div data-lang="zh-TW"><div class="label">2025年前9月<br>價值增長</div></div>
+                    <div data-lang="zh-CN"><div class="label">2025年前9月<br>价值增长</div></div>
+                    <div data-lang="en"><div class="label">Jan-Sep 2025<br>Value Growth</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">~500</div>
+                    <div data-lang="zh-TW"><div class="label">總銷售額（億迪拉姆）<br>≈新台幣4,250億</div></div>
+                    <div data-lang="zh-CN"><div class="label">总销售额（亿迪拉姆）<br>≈人民币950亿</div></div>
+                    <div data-lang="en"><div class="label">Total Sales (AED B)<br>≈USD 13.6 Billion</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">7,700+</div>
+                    <div data-lang="zh-TW"><div class="label">品牌單位成交<br>住進傳奇</div></div>
+                    <div data-lang="zh-CN"><div class="label">品牌单位成交<br>住进传奇</div></div>
+                    <div data-lang="en"><div class="label">Branded Units Sold<br>Living the legend</div></div>
+                </div>
+            </div>
+            
+            <div class="highlight-box" style="margin-top: 35px; text-align: center;">
+                <div style="font-size: 2.5rem; color: var(--gold); font-family: 'Bebas Neue', sans-serif;">64%</div>
+                <div data-lang="zh-TW"><div style="color: var(--white); font-size: 0.9rem;">品牌溢價</div><div style="color: var(--gray); font-size: 0.75rem; margin-top: 3px;">「貴？但你買的是四季、是寶格麗、是賓利。」</div></div>
+                <div data-lang="zh-CN"><div style="color: var(--white); font-size: 0.9rem;">品牌溢价</div><div style="color: var(--gray); font-size: 0.75rem; margin-top: 3px;">「贵？但你买的是四季、是宝格丽、是宾利。」</div></div>
+                <div data-lang="en"><div style="color: var(--white); font-size: 0.9rem;">Brand Premium</div><div style="color: var(--gray); font-size: 0.75rem; margin-top: 3px;">"Expensive? You're buying Four Seasons, Bulgari, Bentley."</div></div>
+            </div>
+            
+            <div class="source-tag">CBRE UAE Branded Residences Report 2025</div>
+        </div>
+    </section>
+
+    <!-- Page 11: Wealth Migration -->
+    <section class="page page-areas" id="page-10">
+        <div class="bg-pattern"></div>
+        <div class="content-center">
+            <p class="small-caps">WEALTH MIGRATION</p>
+            
+            <div data-lang="zh-TW">
+                <div class="headline-mega">
+                    全球百萬富翁都在搬家，<br>目的地：<span class="accent-text">只有一個。</span>
+                </div>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="headline-mega">
+                    全球百万富翁都在搬家，<br>目的地：<span class="accent-text">只有一个。</span>
+                </div>
+            </div>
+            <div data-lang="en">
+                <div class="headline-mega">
+                    Global millionaires are moving.<br>Destination: <span class="accent-text">Only one.</span>
+                </div>
+            </div>
+            
+            <div class="stat-mega" style="font-size: clamp(3.5rem, 12vw, 9rem); margin-top: 15px;">9,800+</div>
+            <div data-lang="zh-TW"><div style="font-size: 0.95rem; color: var(--gray);">2025年預計淨流入百萬富翁人數</div></div>
+            <div data-lang="zh-CN"><div style="font-size: 0.95rem; color: var(--gray);">2025年预计净流入百万富翁人数</div></div>
+            <div data-lang="en"><div style="font-size: 0.95rem; color: var(--gray);">Projected net millionaire inflow 2025</div></div>
+            <div class="growth" style="margin-top: 12px;">🥇 #1 Globally</div>
+            
+            <div class="stats-grid" style="margin-top: 35px;">
+                <div class="stat-card">
+                    <div class="number">13,000</div>
+                    <div data-lang="zh-TW"><div class="label">2024新增百萬富翁</div></div>
+                    <div data-lang="zh-CN"><div class="label">2024新增百万富翁</div></div>
+                    <div data-lang="en"><div class="label">New millionaires 2024</div></div>
+                    <div class="source-tag" style="font-size: 0.55rem;">UBS Global Wealth Report</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">100K+</div>
+                    <div data-lang="zh-TW"><div class="label">黃金簽證發放<br>自2019年起</div></div>
+                    <div data-lang="zh-CN"><div class="label">黄金签证发放<br>自2019年起</div></div>
+                    <div data-lang="en"><div class="label">Golden Visas Issued<br>Since 2019</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">77.5%</div>
+                    <div data-lang="zh-TW"><div class="label">非石油GDP佔比<br>經濟轉型成功</div></div>
+                    <div data-lang="zh-CN"><div class="label">非石油GDP占比<br>经济转型成功</div></div>
+                    <div data-lang="en"><div class="label">Non-oil GDP Share<br>Diversification success</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">5.3%</div>
+                    <div data-lang="zh-TW"><div class="label">2025 GDP增長預測</div></div>
+                    <div data-lang="zh-CN"><div class="label">2025 GDP增长预测</div></div>
+                    <div data-lang="en"><div class="label">2025 GDP Growth Forecast</div></div>
+                </div>
+            </div>
+            
+            <div class="source-tag">Henley Private Wealth Migration Report / CBRE Research</div>
+        </div>
+    </section>
+
+    <!-- Page 12: Quiz -->
+    <section class="page page-quiz" id="page-11">
+        <div class="bg-pattern"></div>
+        <div class="content-center">
+            <div id="quiz-intro">
+                <p class="small-caps">INVESTOR DNA TEST</p>
+                
+                <div data-lang="zh-TW">
+                    <div class="headline-mega" style="font-size: clamp(1.8rem, 4vw, 2.8rem);">
+                        發現你的<span class="accent-text">投資人格 DNA</span>
+                    </div>
+                    <p class="subhead">4道題目，找出你是哪種杜拜投資者。<br>結果可能比你想的更準。</p>
+                </div>
+                <div data-lang="zh-CN">
+                    <div class="headline-mega" style="font-size: clamp(1.8rem, 4vw, 2.8rem);">
+                        发现你的<span class="accent-text">投资人格 DNA</span>
+                    </div>
+                    <p class="subhead">4道题目，找出你是哪种迪拜投资者。<br>结果可能比你想的更准。</p>
+                </div>
+                <div data-lang="en">
+                    <div class="headline-mega" style="font-size: clamp(1.8rem, 4vw, 2.8rem);">
+                        Discover Your <span class="accent-text">Investor DNA</span>
+                    </div>
+                    <p class="subhead">4 questions to find out what kind of Dubai investor you are.<br>The result might surprise you.</p>
+                </div>
+                
+                <button class="save-btn" style="margin-top: 30px;" onclick="startQuiz()">
+                    <span data-lang="zh-TW">開始測試</span>
+                    <span data-lang="zh-CN">开始测试</span>
+                    <span data-lang="en">Start Test</span>
+                </button>
+            </div>
+            
+            <div id="quiz-container" class="quiz-container hidden">
+                <div class="quiz-progress">
+                    <div class="quiz-progress-dot" data-q="0"></div>
+                    <div class="quiz-progress-dot" data-q="1"></div>
+                    <div class="quiz-progress-dot" data-q="2"></div>
+                    <div class="quiz-progress-dot" data-q="3"></div>
+                </div>
+                
+                <div id="quiz-question" class="quiz-question"></div>
+                <div id="quiz-options" class="quiz-options"></div>
+            </div>
+            
+            <div id="quiz-result" class="hidden">
+                <div class="result-card" id="result-card">
+                    <div class="result-card-inner">
+                        <div class="result-type" id="result-type"></div>
+                        <div class="result-title" id="result-title"></div>
+                        <div class="result-desc" id="result-desc"></div>
+                        <div class="result-traits" id="result-traits"></div>
+                    </div>
+                </div>
+                <div style="margin-top: 25px;">
+                    <button class="save-btn" onclick="saveResultCard()">
+                        <span data-lang="zh-TW">儲存結果</span>
+                        <span data-lang="zh-CN">保存结果</span>
+                        <span data-lang="en">Save Result</span>
+                    </button>
+                    <button class="restart-btn" onclick="restartQuiz()">
+                        <span data-lang="zh-TW">重新測試</span>
+                        <span data-lang="zh-CN">重新测试</span>
+                        <span data-lang="en">Try Again</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 13: Meaven -->
+    <section class="page page-meaven" id="page-12">
+        <div class="bg-pattern"></div>
+        <div class="content-center">
+            <div class="meaven-logo">MEAVEN</div>
+            
+            <div data-lang="zh-TW">
+                <div class="headline" style="font-size: clamp(1.5rem, 3.5vw, 2.2rem);">
+                    您最值得信賴的<span class="accent-text">杜拜投資夥伴</span>
+                </div>
+            </div>
+            <div data-lang="zh-CN">
+                <div class="headline" style="font-size: clamp(1.5rem, 3.5vw, 2.2rem);">
+                    您最值得信赖的<span class="accent-text">迪拜投资伙伴</span>
+                </div>
+            </div>
+            <div data-lang="en">
+                <div class="headline" style="font-size: clamp(1.5rem, 3.5vw, 2.2rem);">
+                    Your Most Trusted <span class="accent-text">Dubai Investment Partner</span>
+                </div>
+            </div>
+            
+            <div class="meaven-badges">
+                <div class="meaven-badge">DED Licensed</div>
+                <div class="meaven-badge">RERA Certified</div>
+                <div class="meaven-badge">Official Developer Partner</div>
+            </div>
+            
+            <div class="meaven-content">
+                <div class="meaven-feature">
+                    <div class="meaven-feature-icon">🏢</div>
+                    <div class="meaven-feature-text">
+                        <div data-lang="zh-TW">
+                            <h4>官方合作開發商</h4>
+                            <p>與 Emaar、DAMAC、Sobha 等頂級開發商直接簽約，享受官方價格與優先選房權。</p>
+                        </div>
+                        <div data-lang="zh-CN">
+                            <h4>官方合作开发商</h4>
+                            <p>与 Emaar、DAMAC、Sobha 等顶级开发商直接签约，享受官方价格与优先选房权。</p>
+                        </div>
+                        <div data-lang="en">
+                            <h4>Official Developer Partner</h4>
+                            <p>Direct contracts with Emaar, DAMAC, Sobha - official pricing and priority unit selection.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="meaven-feature">
+                    <div class="meaven-feature-icon">💰</div>
+                    <div class="meaven-feature-text">
+                        <div data-lang="zh-TW">
+                            <h4>跨境金流解決方案</h4>
+                            <p>專業處理海外跨境匯款至杜拜的複雜流程，確保資金安全、高效到帳。</p>
+                        </div>
+                        <div data-lang="zh-CN">
+                            <h4>跨境金流解决方案</h4>
+                            <p>专业处理海外跨境汇款至迪拜的复杂流程，确保资金安全、高效到账。</p>
+                        </div>
+                        <div data-lang="en">
+                            <h4>Cross-border Solutions</h4>
+                            <p>Expert handling of international remittances to Dubai - secure and efficient fund transfers.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="meaven-feature">
+                    <div class="meaven-feature-icon">🌐</div>
+                    <div class="meaven-feature-text">
+                        <div data-lang="zh-TW">
+                            <h4>一站式企業服務</h4>
+                            <p>杜拜公司設立、銀行開戶、稅務規劃、黃金貿易、虛擬貨幣等多元資產配置服務。</p>
+                        </div>
+                        <div data-lang="zh-CN">
+                            <h4>一站式企业服务</h4>
+                            <p>迪拜公司设立、银行开户、税务规划、黄金贸易、虚拟货币等多元资产配置服务。</p>
+                        </div>
+                        <div data-lang="en">
+                            <h4>One-stop Business Services</h4>
+                            <p>Company formation, bank accounts, tax planning, gold trading, crypto asset allocation.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="meaven-feature">
+                    <div class="meaven-feature-icon">📍</div>
+                    <div class="meaven-feature-text">
+                        <div data-lang="zh-TW">
+                            <h4>全球服務網絡</h4>
+                            <p>杜拜、香港、台灣、成都均設有辦事處，提供零時差在地服務。</p>
+                        </div>
+                        <div data-lang="zh-CN">
+                            <h4>全球服务网络</h4>
+                            <p>迪拜、香港、台湾、成都均设有办事处，提供零时差在地服务。</p>
+                        </div>
+                        <div data-lang="en">
+                            <h4>Global Network</h4>
+                            <p>Offices in Dubai, Hong Kong, Taiwan, Chengdu - local service, no time zone barriers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="https://www.meaven.com" target="_blank" class="meaven-cta">
+                <span data-lang="zh-TW">了解更多 →</span>
+                <span data-lang="zh-CN">了解更多 →</span>
+                <span data-lang="en">Learn More →</span>
+            </a>
+            
+            <div style="margin-top: 40px; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 12px; max-width: 700px;">
+                <p style="font-size: 0.7rem; color: var(--gray); line-height: 1.8; text-align: left;">
+                    <strong style="color: var(--gold);">數據來源 Sources：</strong><br>
+                    Dubai Land Department · CBRE UAE Branded Residences Report 2025 · Savills Prime Residential Dec 2025 · 
+                    Henley Private Wealth Migration Report · UBS Global Wealth Report · Oxford Economics · Provident Estate · DXB Properties
+                </p>
+            </div>
+            
+            <p style="margin-top: 20px; font-size: 0.7rem; color: rgba(255,255,255,0.25);">
+                © 2025 Dubai Real Estate Annual Report · Powered by Meaven
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Language Switching
+        const langBtns = document.querySelectorAll('.lang-btn');
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.target;
+                document.body.className = `lang-${lang}`;
+                langBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+        
+        // Navigation
+        const navDots = document.querySelectorAll('.nav-dot');
+        const pages = document.querySelectorAll('.page');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const pageNum = parseInt(entry.target.id.split('-')[1]);
+                    navDots.forEach((dot, idx) => dot.classList.toggle('active', idx === pageNum));
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        pages.forEach(page => observer.observe(page));
+        navDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                document.getElementById(`page-${dot.dataset.page}`).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Quiz Data
+        const quizData = {
+            'zh-TW': {
+                questions: [
+                    {
+                        q: "投資房產時，你最看重什麼？",
+                        opts: ["A. 租金回報率要高", "B. 地段要核心精華", "C. 品牌與設計感", "D. 未來增值潛力"]
+                    },
+                    {
+                        q: "你對「預售屋」的態度是？",
+                        opts: ["A. 願意等，換取更好的價格", "B. 只考慮成屋，即買即住", "C. 看項目而定，品牌優先", "D. 專找潛力區的預售屋"]
+                    },
+                    {
+                        q: "理想的投資預算是？",
+                        opts: ["A. 精準控制在200萬迪拉姆內", "B. 500萬迪拉姆左右的核心區", "C. 1000萬迪拉姆以上的頂級物業", "D. 彈性配置，分散佈局"]
+                    },
+                    {
+                        q: "投資杜拜房產的主要目的是？",
+                        opts: ["A. 穩定的被動收入", "B. 資產保值與身份規劃", "C. 個人使用與生活品味", "D. 長期增值與財富傳承"]
+                    }
+                ],
+                results: {
+                    'AAAA': { type: 'YIELD', title: '現金流獵手', desc: '你是精打細算的投資者，租金回報率是你的第一考量。JVC、Dubai South 這類高收益區域最適合你。', traits: ['收益導向', '精準計算', '務實穩健'] },
+                    'AAAB': { type: 'YIELD+', title: '穩健增值者', desc: '你追求現金流的同時，也不忘長期增值。選擇新興區域的預售屋，讓時間幫你賺錢。', traits: ['雙軌並進', '耐心等待', '眼光獨到'] },
+                    'AABA': { type: 'SMART', title: '精明配置家', desc: '你懂得在不同價位和區域之間靈活配置，是資產多元化的高手。', traits: ['靈活配置', '風險分散', '策略清晰'] },
+                    'AABB': { type: 'FUTURE', title: '未來佈局者', desc: '你總是能在別人還沒看到的地方發現機會，Dubai South、新興區域是你的狩獵場。', traits: ['遠見卓識', '敢於冒險', '先人一步'] },
+                    'ABAA': { type: 'STABLE', title: '穩定收租王', desc: '你偏好成熟區域的現成物業，追求穩定的租金收入和確定性。', traits: ['穩紮穩打', '現金流優先', '風險厭惡'] },
+                    'ABAB': { type: 'BALANCE', title: '平衡藝術家', desc: '你在收益和增值之間找到完美平衡，是全方位的投資者。', traits: ['均衡發展', '全面考量', '理性決策'] },
+                    'ABBA': { type: 'CORE', title: '核心地段控', desc: '對你來說，地段就是一切。Downtown、Marina 這類核心區域是你的首選。', traits: ['地段至上', '品質優先', '長線持有'] },
+                    'ABBB': { type: 'LEGACY', title: '傳承規劃師', desc: '你的投資眼光跨越世代，選擇的每一處物業都是為了家族的長遠未來。', traits: ['代際思維', '穩健增值', '家族傳承'] },
+                    'BAAA': { type: 'VALUE', title: '價值發現者', desc: '你擅長在預售屋市場找到被低估的機會，用時間換取超額回報。', traits: ['價值投資', '耐心持有', '逆向思維'] },
+                    'BAAB': { type: 'GROWTH', title: '成長捕手', desc: '你專注於高成長潛力的物業，願意承擔適度風險換取更高回報。', traits: ['成長導向', '積極進取', '把握時機'] },
+                    'BABA': { type: 'FLEX', title: '彈性投資家', desc: '你不被固定策略束縛，根據市場情況靈活調整投資組合。', traits: ['隨機應變', '多元佈局', '靈活機動'] },
+                    'BABB': { type: 'VISION', title: '願景投資者', desc: '你投資的不只是物業，而是對杜拜未來的信心。長線持有是你的風格。', traits: ['長期視野', '信念堅定', '耐心等待'] },
+                    'BBAA': { type: 'PREMIUM', title: '品味鑑賞家', desc: '對你而言，投資也是一種生活態度。品牌住宅、設計感是你的標配。', traits: ['品味至上', '生活美學', '質感追求'] },
+                    'BBAB': { type: 'ELITE', title: '精英配置師', desc: '你追求頂級物業與長期價值的結合，品牌住宅是你資產組合的重要一環。', traits: ['頂級定位', '品牌認同', '價值投資'] },
+                    'BBBA': { type: 'LUXURY', title: '奢華生活家', desc: 'Four Seasons、Bulgari 這些名字對你有特別的吸引力。投資，也是一種生活方式。', traits: ['奢華品味', '享受生活', '獨特眼光'] },
+                    'BBBB': { type: 'DYNASTY', title: '家族資產家', desc: '你思考的是跨世代的財富佈局，每一處頂級物業都是家族版圖的一塊。', traits: ['世代傳承', '頂級配置', '家族榮耀'] }
+                }
+            },
+            'zh-CN': {
+                questions: [
+                    {
+                        q: "投资房产时，你最看重什么？",
+                        opts: ["A. 租金回报率要高", "B. 地段要核心精华", "C. 品牌与设计感", "D. 未来增值潜力"]
+                    },
+                    {
+                        q: "你对「期房」的态度是？",
+                        opts: ["A. 愿意等，换取更好的价格", "B. 只考虑现房，即买即住", "C. 看项目而定，品牌优先", "D. 专找潜力区的期房"]
+                    },
+                    {
+                        q: "理想的投资预算是？",
+                        opts: ["A. 精准控制在200万迪拉姆内", "B. 500万迪拉姆左右的核心区", "C. 1000万迪拉姆以上的顶级物业", "D. 弹性配置，分散布局"]
+                    },
+                    {
+                        q: "投资迪拜房产的主要目的是？",
+                        opts: ["A. 稳定的被动收入", "B. 资产保值与身份规划", "C. 个人使用与生活品味", "D. 长期增值与财富传承"]
+                    }
+                ],
+                results: {
+                    'AAAA': { type: 'YIELD', title: '现金流猎手', desc: '你是精打细算的投资者，租金回报率是你的第一考量。JVC、Dubai South 这类高收益区域最适合你。', traits: ['收益导向', '精准计算', '务实稳健'] },
+                    'AAAB': { type: 'YIELD+', title: '稳健增值者', desc: '你追求现金流的同时，也不忘长期增值。选择新兴区域的期房，让时间帮你赚钱。', traits: ['双轨并进', '耐心等待', '眼光独到'] },
+                    'AABA': { type: 'SMART', title: '精明配置家', desc: '你懂得在不同价位和区域之间灵活配置，是资产多元化的高手。', traits: ['灵活配置', '风险分散', '策略清晰'] },
+                    'AABB': { type: 'FUTURE', title: '未来布局者', desc: '你总是能在别人还没看到的地方发现机会，Dubai South、新兴区域是你的狩猎场。', traits: ['远见卓识', '敢于冒险', '先人一步'] },
+                    'ABAA': { type: 'STABLE', title: '稳定收租王', desc: '你偏好成熟区域的现成物业，追求稳定的租金收入和确定性。', traits: ['稳扎稳打', '现金流优先', '风险厌恶'] },
+                    'ABAB': { type: 'BALANCE', title: '平衡艺术家', desc: '你在收益和增值之间找到完美平衡，是全方位的投资者。', traits: ['均衡发展', '全面考量', '理性决策'] },
+                    'ABBA': { type: 'CORE', title: '核心地段控', desc: '对你来说，地段就是一切。Downtown、Marina 这类核心区域是你的首选。', traits: ['地段至上', '品质优先', '长线持有'] },
+                    'ABBB': { type: 'LEGACY', title: '传承规划师', desc: '你的投资眼光跨越世代，选择的每一处物业都是为了家族的长远未来。', traits: ['代际思维', '稳健增值', '家族传承'] },
+                    'BAAA': { type: 'VALUE', title: '价值发现者', desc: '你擅长在期房市场找到被低估的机会，用时间换取超额回报。', traits: ['价值投资', '耐心持有', '逆向思维'] },
+                    'BAAB': { type: 'GROWTH', title: '成长捕手', desc: '你专注于高成长潜力的物业，愿意承担适度风险换取更高回报。', traits: ['成长导向', '积极进取', '把握时机'] },
+                    'BABA': { type: 'FLEX', title: '弹性投资家', desc: '你不被固定策略束缚，根据市场情况灵活调整投资组合。', traits: ['随机应变', '多元布局', '灵活机动'] },
+                    'BABB': { type: 'VISION', title: '愿景投资者', desc: '你投资的不只是物业，而是对迪拜未来的信心。长线持有是你的风格。', traits: ['长期视野', '信念坚定', '耐心等待'] },
+                    'BBAA': { type: 'PREMIUM', title: '品味鉴赏家', desc: '对你而言，投资也是一种生活态度。品牌住宅、设计感是你的标配。', traits: ['品味至上', '生活美学', '质感追求'] },
+                    'BBAB': { type: 'ELITE', title: '精英配置师', desc: '你追求顶级物业与长期价值的结合，品牌住宅是你资产组合的重要一环。', traits: ['顶级定位', '品牌认同', '价值投资'] },
+                    'BBBA': { type: 'LUXURY', title: '奢华生活家', desc: 'Four Seasons、Bulgari 这些名字对你有特别的吸引力。投资，也是一种生活方式。', traits: ['奢华品味', '享受生活', '独特眼光'] },
+                    'BBBB': { type: 'DYNASTY', title: '家族资产家', desc: '你思考的是跨世代的财富布局，每一处顶级物业都是家族版图的一块。', traits: ['世代传承', '顶级配置', '家族荣耀'] }
+                }
+            },
+            'en': {
+                questions: [
+                    {
+                        q: "What matters most when investing in property?",
+                        opts: ["A. High rental yield", "B. Prime location", "C. Brand & design", "D. Future appreciation"]
+                    },
+                    {
+                        q: "Your attitude towards off-plan properties?",
+                        opts: ["A. Willing to wait for better pricing", "B. Only ready properties", "C. Depends on the brand", "D. Hunting in emerging areas"]
+                    },
+                    {
+                        q: "Your ideal investment budget?",
+                        opts: ["A. Under AED 2 million", "B. Around AED 5 million in prime areas", "C. AED 10 million+ for premium", "D. Flexible allocation"]
+                    },
+                    {
+                        q: "Main purpose of investing in Dubai real estate?",
+                        opts: ["A. Stable passive income", "B. Asset preservation & visa", "C. Personal use & lifestyle", "D. Long-term wealth building"]
+                    }
+                ],
+                results: {
+                    'AAAA': { type: 'YIELD', title: 'Cash Flow Hunter', desc: 'You\'re a calculated investor with rental yield as top priority. High-yield areas like JVC and Dubai South are perfect for you.', traits: ['Yield-focused', 'Calculated', 'Pragmatic'] },
+                    'AAAB': { type: 'YIELD+', title: 'Steady Grower', desc: 'You chase cash flow while keeping an eye on appreciation. Off-plan in emerging areas lets time work for you.', traits: ['Dual-track', 'Patient', 'Sharp-eyed'] },
+                    'AABA': { type: 'SMART', title: 'Smart Allocator', desc: 'You know how to flexibly allocate across price points and areas. A true diversification master.', traits: ['Flexible', 'Risk-aware', 'Strategic'] },
+                    'AABB': { type: 'FUTURE', title: 'Future Spotter', desc: 'You see opportunities before others. Dubai South and emerging areas are your hunting ground.', traits: ['Visionary', 'Bold', 'Ahead of curve'] },
+                    'ABAA': { type: 'STABLE', title: 'Rental King', desc: 'You prefer ready properties in mature areas, pursuing stable rental income and certainty.', traits: ['Steady', 'Cash flow first', 'Risk-averse'] },
+                    'ABAB': { type: 'BALANCE', title: 'Balance Artist', desc: 'You\'ve found the perfect balance between yield and appreciation. A well-rounded investor.', traits: ['Balanced', 'Comprehensive', 'Rational'] },
+                    'ABBA': { type: 'CORE', title: 'Prime Location Pro', desc: 'For you, location is everything. Downtown and Marina are your go-to choices.', traits: ['Location-first', 'Quality-driven', 'Long-term'] },
+                    'ABBB': { type: 'LEGACY', title: 'Legacy Planner', desc: 'Your investment vision spans generations. Every property is for your family\'s long-term future.', traits: ['Generational', 'Steady growth', 'Family legacy'] },
+                    'BAAA': { type: 'VALUE', title: 'Value Finder', desc: 'You excel at finding undervalued opportunities in off-plan markets, trading time for excess returns.', traits: ['Value investor', 'Patient holder', 'Contrarian'] },
+                    'BAAB': { type: 'GROWTH', title: 'Growth Catcher', desc: 'You focus on high-growth potential properties, willing to take calculated risks for higher returns.', traits: ['Growth-oriented', 'Proactive', 'Timing-savvy'] },
+                    'BABA': { type: 'FLEX', title: 'Flex Investor', desc: 'You\'re not bound by fixed strategies, adjusting your portfolio based on market conditions.', traits: ['Adaptable', 'Diversified', 'Agile'] },
+                    'BABB': { type: 'VISION', title: 'Vision Investor', desc: 'You\'re investing in Dubai\'s future, not just properties. Long-term holding is your style.', traits: ['Long-term view', 'Conviction', 'Patient'] },
+                    'BBAA': { type: 'PREMIUM', title: 'Taste Connoisseur', desc: 'For you, investing is a lifestyle statement. Branded residences and design are your standard.', traits: ['Taste-first', 'Aesthetics', 'Quality pursuit'] },
+                    'BBAB': { type: 'ELITE', title: 'Elite Allocator', desc: 'You pursue the combination of premium properties and long-term value. Branded residences are key to your portfolio.', traits: ['Premium positioning', 'Brand-aligned', 'Value investor'] },
+                    'BBBA': { type: 'LUXURY', title: 'Luxury Lifestyle', desc: 'Four Seasons, Bulgari - these names speak to you. Investing is also a way of life.', traits: ['Luxury taste', 'Life enjoyment', 'Unique vision'] },
+                    'BBBB': { type: 'DYNASTY', title: 'Dynasty Builder', desc: 'You think in generational wealth. Every premium property is a piece of your family empire.', traits: ['Generational wealth', 'Premium allocation', 'Family glory'] }
+                }
+            }
+        };
+        
+        let currentQuestion = 0;
+        let answers = [];
+        
+        function getLang() {
+            if (document.body.classList.contains('lang-en')) return 'en';
+            if (document.body.classList.contains('lang-zh-CN')) return 'zh-CN';
+            return 'zh-TW';
+        }
+        
+        function startQuiz() {
+            document.getElementById('quiz-intro').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            currentQuestion = 0;
+            answers = [];
+            showQuestion();
+        }
+        
+        function showQuestion() {
+            const lang = getLang();
+            const data = quizData[lang];
+            const q = data.questions[currentQuestion];
+            
+            document.getElementById('quiz-question').textContent = q.q;
+            
+            const optsHtml = q.opts.map((opt, idx) => 
+                `<div class="quiz-option" onclick="selectOption(${idx})">${opt}</div>`
+            ).join('');
+            document.getElementById('quiz-options').innerHTML = optsHtml;
+            
+            document.querySelectorAll('.quiz-progress-dot').forEach((dot, idx) => {
+                dot.classList.remove('active', 'completed');
+                if (idx < currentQuestion) dot.classList.add('completed');
+                if (idx === currentQuestion) dot.classList.add('active');
+            });
+        }
+        
+        function selectOption(idx) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(o => o.classList.remove('selected'));
+            options[idx].classList.add('selected');
+            
+            // Map options: 0,1 = A/B for first dimension, 2,3 = A/B for second dimension
+            const answerMap = ['A', 'B', 'C', 'D'];
+            // Simplify to A or B based on index (0,1 -> A, 2,3 -> B)
+            answers.push(idx < 2 ? 'A' : 'B');
+            
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < 4) {
+                    showQuestion();
+                } else {
+                    showResult();
+                }
+            }, 300);
+        }
+        
+        function showResult() {
+            const lang = getLang();
+            const data = quizData[lang];
+            const key = answers.join('');
+            const result = data.results[key] || data.results['AAAA'];
+            
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+            
+            document.getElementById('result-type').textContent = result.type;
+            document.getElementById('result-title').textContent = result.title;
+            document.getElementById('result-desc').textContent = result.desc;
+            
+            const traitsHtml = result.traits.map(t => `<span class="result-trait">${t}</span>`).join('');
+            document.getElementById('result-traits').innerHTML = traitsHtml;
+        }
+        
+        function restartQuiz() {
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-intro').classList.remove('hidden');
+            currentQuestion = 0;
+            answers = [];
+        }
+        
+        function saveResultCard() {
+            const card = document.getElementById('result-card');
+            
+            // Use html2canvas if available, otherwise alert
+            if (typeof html2canvas !== 'undefined') {
+                html2canvas(card).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'my-dubai-investor-dna.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                });
+            } else {
+                // Fallback: create a simple downloadable text/image
+                const lang = getLang();
+                const type = document.getElementById('result-type').textContent;
+                const title = document.getElementById('result-title').textContent;
+                
+                // Create a canvas manually
+                const canvas = document.createElement('canvas');
+                canvas.width = 400;
+                canvas.height = 300;
+                const ctx = canvas.getContext('2d');
+                
+                // Background
+                ctx.fillStyle = '#0D0D0D';
+                ctx.fillRect(0, 0, 400, 300);
+                
+                // Border
+                ctx.strokeStyle = '#C6A969';
+                ctx.lineWidth = 3;
+                ctx.strokeRect(10, 10, 380, 280);
+                
+                // Text
+                ctx.fillStyle = '#C6A969';
+                ctx.font = 'bold 36px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(type, 200, 100);
+                
+                ctx.fillStyle = '#FAFAFA';
+                ctx.font = 'bold 24px Arial';
+                ctx.fillText(title, 200, 150);
+                
+                ctx.fillStyle = '#6B7280';
+                ctx.font = '14px Arial';
+                ctx.fillText('Dubai Investor DNA 2025', 200, 250);
+                
+                const link = document.createElement('a');
+                link.download = 'my-dubai-investor-dna.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            }
+        }
+    </script>
+</body>
+</html>
